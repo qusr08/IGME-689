@@ -208,8 +208,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 209460712}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.17364822, y: -0.00036472484, z: -0.00029838318, w: 0.9848077}
-  m_LocalPosition: {x: 4563.1416, y: 248.37006, z: 1.4025577}
+  m_LocalRotation: {x: -0.052217036, y: 0.9392279, z: -0.16561109, w: -0.29613745}
+  m_LocalPosition: {x: -0.0000016297531, y: 500, z: -0.000030310126}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -369,14 +369,14 @@ MonoBehaviour:
   position:
     X: -74.006
     Y: 40.7128
-    Z: 250
+    Z: 500
     SRWkid: 4326
     SpatialReference:
       WKID: 4326
       VerticalWKID: 0
     version: 1
   rotation:
-    Heading: 0
+    Heading: 215
     Pitch: 70
     Roll: 0
   surfacePlacementMode: 0
@@ -416,19 +416,101 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_IsInitialized: 1
   m_LocalPosition:
-    x: 1334050.6695695196
-    y: 4138463.3056343747
-    z: -4654227.004563121
+    x: 1334102.882989781
+    y: 4138626.3725734726
+    z: -4654409.1663925955
   m_LocalRotation:
     value:
-      x: -0.25034717
-      y: -0.13460219
-      z: -0.035170633
-      w: 0.9581083
+      x: 0.15070671
+      y: 0.8174723
+      z: -0.52631104
+      w: -0.17895047
   m_LocalScale:
     x: 1
     y: 1
     z: 1
+--- !u!1001 &452124144
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 40a57eb8d23a72a4c9ef3caa1da0e54e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -3341
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 40a57eb8d23a72a4c9ef3caa1da0e54e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 40a57eb8d23a72a4c9ef3caa1da0e54e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2572
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 40a57eb8d23a72a4c9ef3caa1da0e54e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.27311984
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 40a57eb8d23a72a4c9ef3caa1da0e54e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 40a57eb8d23a72a4c9ef3caa1da0e54e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.96198004
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 40a57eb8d23a72a4c9ef3caa1da0e54e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 40a57eb8d23a72a4c9ef3caa1da0e54e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 40a57eb8d23a72a4c9ef3caa1da0e54e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 148.3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 40a57eb8d23a72a4c9ef3caa1da0e54e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 40a57eb8d23a72a4c9ef3caa1da0e54e, type: 3}
+      propertyPath: m_Name
+      value: LibertStatue
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 40a57eb8d23a72a4c9ef3caa1da0e54e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 40a57eb8d23a72a4c9ef3caa1da0e54e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 689986418}
+  m_SourcePrefab: {fileID: 100100000, guid: 40a57eb8d23a72a4c9ef3caa1da0e54e, type: 3}
+--- !u!1 &689986416 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 40a57eb8d23a72a4c9ef3caa1da0e54e, type: 3}
+  m_PrefabInstance: {fileID: 452124144}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &689986418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 689986416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e561360e3dbfb5f4b87495b9c34d41ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arcGISMapComponent: {fileID: 1489949840}
 --- !u!1 &1489949839
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,7 +542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   apiKey: AAPTxy8BH1VEsoebNVZXo8HurI27Gh7eeDxE8lDN-ysUtjcOkJ7-og1dfRUEOubB2JbTqROJ1tc0zBCUOe15-dfF3TsF6ZtICiZy2Cilxq46Ke4wa7ZP88FVpROWfL2WjQKgMoBOfhSFuezs3EJ9wzt1UN53r0qsZw1n-dWef_f91WUeQZbY4NPwMtaqekm1NALvJegVDmjQMiNGgTCYkvnMoVivS8wFFaUW36dC5Jm4nmo.AT1_FuolWxkR
-  basemap: https://basemapstyles-api.arcgis.com/arcgis/rest/services/styles/v2/webmaps/arcgis/navigation
+  basemap: https://basemapstyles-api.arcgis.com/arcgis/rest/services/styles/v2/webmaps/arcgis/imagery/standard
   basemapType: 0
   basemapAuthentication:
     ConfigurationIndex: -1
@@ -562,7 +644,7 @@ MonoBehaviour:
       Polygons: []
       Type: 0
   originPosition:
-    X: -74.06
+    X: -74.006
     Y: 40.7128
     Z: 0
     SRWkid: 4326
@@ -599,15 +681,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_LocalPosition:
-    x: 1329611.5304007835
+    x: 1333998.456149258
     y: 4138300.2386952764
-    z: -4655300.039461424
+    z: -4654044.842733645
   m_LocalRotation:
     value:
-      x: -0.41294494
-      y: -0.1260258
-      z: -0.057815157
-      w: 0.90013963
+      x: -0.41291764
+      y: -0.12644996
+      z: -0.058009744
+      w: 0.90008014
 --- !u!4 &1489949842
 Transform:
   m_ObjectHideFlags: 0
@@ -640,7 +722,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1659160951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -657,9 +739,8 @@ MonoBehaviour:
   - {x: -74.006, y: 40.7128}
   - {x: -79.3832, y: 43.6532}
   - {x: 144.9631, y: -37.8136}
-  currentLocationIndex: 0
-  arcGISMap: {fileID: 1489949840}
-  arcGISCameraLocation: {fileID: 209460717}
+  arcGISMapComponent: {fileID: 1489949840}
+  arcGISCameraComponent: {fileID: 209460718}
 --- !u!4 &1659160952
 Transform:
   m_ObjectHideFlags: 0
@@ -921,4 +1002,5 @@ SceneRoots:
   m_Roots:
   - {fileID: 1880964105}
   - {fileID: 1489949842}
+  - {fileID: 452124144}
   - {fileID: 1659160952}
