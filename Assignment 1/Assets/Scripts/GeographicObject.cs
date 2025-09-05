@@ -1,12 +1,10 @@
 using Esri.ArcGISMapsSDK.Components;
 using Esri.GameEngine.Geometry;
-using Esri.GameEngine.Map;
-using Esri.GameEngine.View;
 using Esri.HPFramework;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class CustomGeoObject : MonoBehaviour
+public class GeographicObject : MonoBehaviour
 {
 	[SerializeField] private ArcGISMapComponent arcGISMapComponent;
 

@@ -4,26 +4,29 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class UpdateLocation : MonoBehaviour
+public class MapLocationController : MonoBehaviour
 {
-	[SerializeField] private List<Vector2> locations;
+	[SerializeField] private List<Vector2> _locations;
 	[SerializeField] private ArcGISMapComponent arcGISMapComponent;
 	[SerializeField] private ArcGISCameraComponent arcGISCameraComponent;
 
-	private int currentLocationIndex;
-	private List<CustomGeoObject> customGeoObjects;
+	// Locations are set up as (Longitude, Latitude)
+	public List<Vector2> Locations => _locations;
+	public int CurrentLocationIndex { get; private set; }
+
+	private List<GeographicObject> geographicObjects;
 
 	private void Awake ( )
 	{
 		// Get a list of all the custom geo objects in the scene
-		customGeoObjects = FindObjectsByType<CustomGeoObject>(FindObjectsSortMode.None).ToList( );
+		geographicObjects = FindObjectsByType<GeographicObject>(FindObjectsSortMode.None).ToList( );
 	}
 
 	private void Start ( )
 	{
 		// Set the map to the first location
-		currentLocationIndex = 0;
-		SetLocationFromIndex(currentLocationIndex);
+		CurrentLocationIndex = 0;
+		SetLocationFromIndex(CurrentLocationIndex);
 	}
 
 	private void Update ( )
@@ -38,22 +41,22 @@ public class UpdateLocation : MonoBehaviour
 	private void GoToNextLocation ( )
 	{
 		// Make sure the current location index loops back to the start after the last location has been visited
-		currentLocationIndex = (currentLocationIndex + 1) % locations.Count;
-		SetLocationFromIndex(currentLocationIndex);
+		CurrentLocationIndex = (CurrentLocationIndex + 1) % _locations.Count;
+		SetLocationFromIndex(CurrentLocationIndex);
 	}
 
 	private void SetLocationFromIndex (int index)
 	{
 		// Update the map origin
-		arcGISMapComponent.OriginPosition = new ArcGISPoint(locations[index].x, locations[index].y, 0, ArcGISSpatialReference.WGS84( ));
+		arcGISMapComponent.OriginPosition = new ArcGISPoint(_locations[index].x, _locations[index].y, 0, ArcGISSpatialReference.WGS84( ));
 		arcGISMapComponent.UpdateHPRoot( );
 
 		// Update the camera position
 		ArcGISLocationComponent cameraLocation = arcGISCameraComponent.GetComponent<ArcGISLocationComponent>( );
-		cameraLocation.Position = new ArcGISPoint(locations[index].x, locations[index].y, cameraLocation.Position.Z, ArcGISSpatialReference.WGS84( ));
+		cameraLocation.Position = new ArcGISPoint(_locations[index].x, _locations[index].y, cameraLocation.Position.Z, ArcGISSpatialReference.WGS84( ));
 
 		// Update all 3D objects in the scene
-		foreach (CustomGeoObject obj in customGeoObjects)
+		foreach (GeographicObject obj in geographicObjects)
 		{
 			obj.PrintCoordinates( );
 		}

@@ -208,8 +208,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 209460712}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.052217036, y: 0.9392279, z: -0.16561109, w: -0.29613745}
-  m_LocalPosition: {x: -0.0000016297531, y: 500, z: -0.000030310126}
+  m_LocalRotation: {x: -0.000000013798504, y: 0.95371693, z: 0.000000034664122, w: -0.30070582}
+  m_LocalPosition: {x: -0.0000009778273, y: 300, z: -0.000018186634}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -369,7 +369,7 @@ MonoBehaviour:
   position:
     X: -74.006
     Y: 40.7128
-    Z: 500
+    Z: 300
     SRWkid: 4326
     SpatialReference:
       WKID: 4326
@@ -377,7 +377,7 @@ MonoBehaviour:
     version: 1
   rotation:
     Heading: 215
-    Pitch: 70
+    Pitch: 90
     Roll: 0
   surfacePlacementMode: 0
   surfacePlacementOffset: 0
@@ -416,15 +416,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_IsInitialized: 1
   m_LocalPosition:
-    x: 1334102.882989781
-    y: 4138626.3725734726
-    z: -4654409.1663925955
+    x: 1334061.1122535719
+    y: 4138495.919022194
+    z: -4654263.436929015
   m_LocalRotation:
     value:
-      x: 0.15070671
-      y: 0.8174723
-      z: -0.52631104
-      w: -0.17895047
+      x: 0.17949158
+      y: 0.896446
+      z: -0.37636265
+      w: -0.15006186
   m_LocalScale:
     x: 1
     y: 1
@@ -511,6 +511,102 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arcGISMapComponent: {fileID: 1489949840}
+--- !u!1 &721048073
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 721048075}
+  - component: {fileID: 721048074}
+  m_Layer: 0
+  m_Name: Sky and Fog Global Volume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &721048074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721048073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 73c47a1a4a63da446b409e4f7e7d16d7, type: 2}
+--- !u!4 &721048075
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721048073}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6062.39, y: -3489.5708, z: -7543.632}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1398021808
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1398021809}
+  - component: {fileID: 1398021810}
+  m_Layer: 0
+  m_Name: ArcGISLighting
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1398021809
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1398021808}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1880964105}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1398021810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1398021808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec66b314f7e53544190bf28e3ddaf170, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraComponent: {fileID: 209460718}
+  arcGISMapComponent: {fileID: 1489949840}
 --- !u!1 &1489949839
 GameObject:
   m_ObjectHideFlags: 0
@@ -522,6 +618,7 @@ GameObject:
   - component: {fileID: 1489949842}
   - component: {fileID: 1489949841}
   - component: {fileID: 1489949840}
+  - component: {fileID: 1489949843}
   m_Layer: 0
   m_Name: ArcGISMap
   m_TagString: Untagged
@@ -706,56 +803,24 @@ Transform:
   - {fileID: 209460715}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1659160950
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1659160952}
-  - component: {fileID: 1659160951}
-  m_Layer: 0
-  m_Name: LocationUpdater
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1659160951
+--- !u!114 &1489949843
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1659160950}
+  m_GameObject: {fileID: 1489949839}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f05ad5182258484f9c4281df692678d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  locations:
-  - {x: -74.006, y: 40.7128}
-  - {x: -79.3832, y: 43.6532}
-  - {x: 144.9631, y: -37.8136}
+  _locations:
+  - {x: -74.006, y: 40.7128, z: -5}
+  - {x: -79.3832, y: 43.6532, z: -5}
+  - {x: 144.9631, y: -37.8136, z: 10}
   arcGISMapComponent: {fileID: 1489949840}
   arcGISCameraComponent: {fileID: 209460718}
---- !u!4 &1659160952
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1659160950}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1880964103
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,8 +832,9 @@ GameObject:
   - component: {fileID: 1880964105}
   - component: {fileID: 1880964104}
   - component: {fileID: 1880964106}
+  - component: {fileID: 1880964107}
   m_Layer: 0
-  m_Name: Directional Light
+  m_Name: Sun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -847,13 +913,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1880964103}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_Father: {fileID: 1398021809}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1880964106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -996,11 +1062,25 @@ MonoBehaviour:
   m_ObsoleteUseShadowQualitySettings: 0
   m_ObsoleteCustomShadowResolution: 512
   m_ObsoleteContactShadows: 0
+--- !u!114 &1880964107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1880964103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b7d5496b2ea8394b86d5a4f92ecc7ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapLocationController: {fileID: 1489949843}
+  arcGISMapComponent: {fileID: 1489949840}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1880964105}
+  - {fileID: 721048075}
+  - {fileID: 1398021809}
   - {fileID: 1489949842}
   - {fileID: 452124144}
-  - {fileID: 1659160952}
