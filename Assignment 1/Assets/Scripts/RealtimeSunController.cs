@@ -5,10 +5,7 @@ using UnityEngine;
 public class RealtimeSunController : MonoBehaviour
 {
 	[SerializeField] private MapLocationController mapLocationController;
-	[SerializeField] private ArcGISCameraComponent arcGISCameraController;
-	[SerializeField] private ArcGISMapComponent arcGISMapComponent;
 
-	//private float earthCircumferenceMeters = 40075f;
 	private float earthAxialTiltRadians = 23.5f * Mathf.Deg2Rad;
 	private float earthRadiansPerHour = 15f * Mathf.Deg2Rad;
 	private float earthMinutesPerRadian = 4f / Mathf.Deg2Rad;
@@ -25,13 +22,14 @@ public class RealtimeSunController : MonoBehaviour
 		hoursLocal += nowLocal.Minute / 60f;
 		hoursLocal += nowLocal.Second / 3600f;
 		hoursLocal += nowLocal.Millisecond / 3600000f;
-		hoursLocal = 10f;
 
 		// Math Resource Links:
 		// https://www.pveducation.org/pvcdrom/properties-of-sunlight/the-suns-position
 		// https://www.pveducation.org/pvcdrom/properties-of-sunlight/elevation-angle
 		// https://www.pveducation.org/pvcdrom/properties-of-sunlight/sun-position-calculator
 		// https://en.wikipedia.org/wiki/Solar_azimuth_angle
+
+		// Note: This math might not be 100% correct
 
 		// Calculate the local solar time based on:
 		// - current time zone
@@ -61,7 +59,7 @@ public class RealtimeSunController : MonoBehaviour
 		}
 
 		// Set the rotation of the directional light to match the sun's position in the sky
-		transform.rotation = Quaternion.Euler(elevation * Mathf.Rad2Deg, azimuth * Mathf.Rad2Deg, 0f);
+		transform.rotation = Quaternion.Euler(elevation * Mathf.Rad2Deg, -azimuth * Mathf.Rad2Deg, 0f);
 
 		//Debug.Log("---------------------------------------------------------");
 		//Debug.Log($"Local Standard Time Meridan: {localStandardTimeMeridian * Mathf.Rad2Deg} degrees");

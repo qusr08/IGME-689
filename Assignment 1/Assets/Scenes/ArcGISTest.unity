@@ -209,13 +209,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 209460712}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.000000013798504, y: 0.95371693, z: 0.000000034664122, w: -0.30070582}
-  m_LocalPosition: {x: -0.0000009778273, y: 300, z: -0.000018186634}
+  m_LocalRotation: {x: 0.000000023271463, y: 0.0000000010494606, z: -2.4422484e-17, w: 1}
+  m_LocalPosition: {x: -0.0000010041372, y: 300, z: -0.000018174062}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1489949842}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -145, z: 0}
 --- !u!114 &209460716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -368,18 +368,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   position:
-    X: -74.006
-    Y: 40.7128
-    Z: 300
+    X: -74.00600000000031
+    Y: 40.712800000000115
+    Z: 300.0000052161468
     SRWkid: 4326
     SpatialReference:
       WKID: 4326
       VerticalWKID: 0
     version: 1
   rotation:
-    Heading: 215
-    Pitch: 90
-    Roll: 0
+    Heading: 0.0000009554020363081705
+    Pitch: 90.00000224033123
+    Roll: 359.9999998452629
   surfacePlacementMode: 0
   surfacePlacementOffset: 0
   version: 1
@@ -417,15 +417,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_IsInitialized: 1
   m_LocalPosition:
-    x: 1334061.1122535719
-    y: 4138495.919022194
-    z: -4654263.436929015
+    x: 1334061.1122546336
+    y: 4138495.9190256046
+    z: -4654263.436932815
   m_LocalRotation:
     value:
-      x: 0.17949158
-      y: 0.896446
-      z: -0.37636265
-      w: -0.15006186
+      x: -0.4129176
+      y: -0.12644996
+      z: -0.058009744
+      w: 0.9000802
   m_LocalScale:
     x: 1
     y: 1
@@ -603,14 +603,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1398021808}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1880964105}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &1398021810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -910,7 +910,7 @@ Light:
   m_RenderingLayerMask: 1
   m_Lightmapping: 4
   m_LightShadowCasterMode: 2
-  m_AreaSize: {x: 1, y: 1}
+  m_AreaSize: {x: 0.5, y: 0.5}
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 1
@@ -1093,8 +1093,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapLocationController: {fileID: 1489949843}
-  arcGISCameraController: {fileID: 0}
-  arcGISMapComponent: {fileID: 1489949840}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
