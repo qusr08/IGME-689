@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 209460718}
   - component: {fileID: 209460717}
   - component: {fileID: 209460716}
+  - component: {fileID: 209460720}
   m_Layer: 0
   m_Name: ArcGISCamera
   m_TagString: MainCamera
@@ -429,6 +430,23 @@ MonoBehaviour:
     x: 1
     y: 1
     z: 1
+--- !u!114 &209460720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 209460712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27afbdfc83e47004e95ef7726ed4a9cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxSpeed: 2000000
+  MinSpeed: 1000
+  IgnoreUI: 0
+  EnableLeftDragging: 1
+  EnableRightDragging: 1
 --- !u!1001 &452124144
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -816,9 +834,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _locations:
-  - {x: -74.006, y: 40.7128, z: -5}
-  - {x: -79.3832, y: 43.6532, z: -5}
-  - {x: 144.9631, y: -37.8136, z: 10}
+  - {x: -74.006, y: 40.7128}
+  - {x: -79.3832, y: 43.6532}
+  - {x: 144.9631, y: -37.8136}
   arcGISMapComponent: {fileID: 1489949840}
   arcGISCameraComponent: {fileID: 209460718}
 --- !u!1 &1880964103
@@ -1075,6 +1093,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapLocationController: {fileID: 1489949843}
+  arcGISCameraController: {fileID: 0}
   arcGISMapComponent: {fileID: 1489949840}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
