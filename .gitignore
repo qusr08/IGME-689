@@ -74,5 +74,8 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
-# ArcGIS files
+# ArcGIS Maps SDK
+/[Aa]ssets/[Ss]amples/ArcGIS Maps SDK for Unity*
+Packages/com.esri.arcgis-maps-sdk/
 arcgis-maps-sdk-unity-2.1.0.tgz
+
