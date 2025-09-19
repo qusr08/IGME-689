@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.esri.arcgis-maps-sdk": {
-      "version": "file:C:/Users/q24xb/Documents/Unity/IGME-689/arcgis-maps-sdk-unity-2.1.0.tgz",
+      "version": "file:E:/Github/IGME-689/arcgis-maps-sdk-unity-2.1.0.tgz",
       "depth": 0,
       "source": "local-tarball",
       "dependencies": {
