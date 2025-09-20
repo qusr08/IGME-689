@@ -390,7 +390,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   apiKey: AAPTxy8BH1VEsoebNVZXo8HurI27Gh7eeDxE8lDN-ysUtjcOkJ7-og1dfRUEOubB2JbTqROJ1tc0zBCUOe15-dfF3TsF6ZtICiZy2Cilxq46Ke4wa7ZP88FVpROWfL2WjQKgMoBOfhSFuezs3EJ9wzt1UN53r0qsZw1n-dWef_f91WUeQZbY4NPwMtaqekm1NALvJegVDmjQMiNGgTCYkvnMoVivS8wFFaUW36dC5Jm4nmo.AT1_FuolWxkR
-  basemap: https://basemapstyles-api.arcgis.com/arcgis/rest/services/styles/v2/webmaps/osm/dark-gray
+  basemap: https://basemapstyles-api.arcgis.com/arcgis/rest/services/styles/v2/webmaps/arcgis/human-geography-dark
   basemapType: 0
   basemapAuthentication:
     ConfigurationIndex: -1
@@ -400,11 +400,11 @@ MonoBehaviour:
     - Name: Terrain 3D
       Type: 0
       Source: https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer
-      IsEnabled: 1
+      IsEnabled: 0
       Authentication:
         ConfigurationIndex: -1
       AuthenticationType: 1
-    ExaggerationFactor: 1
+    ExaggerationFactor: 0
     MeshModifications:
       IsEnabled: 0
       MeshModifications: []
@@ -581,6 +581,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b31b8b591f2153b4bba586dcbda88dbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arcGISMapComponent: {fileID: 259891964}
+  stateMaterial: {fileID: 2100000, guid: 009c1a85144ecf342a70bdb315a9bac2, type: 2}
+  stateMinAltitude: 1000
+  stateMeshScale: 1000
 --- !u!1 &1794738756
 GameObject:
   m_ObjectHideFlags: 0
@@ -770,8 +774,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   position:
-    X: -97.4
-    Y: 28.5
+    X: -97.39999996083944
+    Y: 28.49999979633413
     Z: 3500000
     SRWkid: 4326
     SpatialReference:
@@ -870,9 +874,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_IsInitialized: 1
   m_LocalPosition:
-    x: -10842518.403264847
+    x: -10842518.398905514
     y: 3500000
-    z: 3312159.8598184385
+    z: 3312159.8340201457
   m_LocalRotation:
     value:
       x: 0.57357645
