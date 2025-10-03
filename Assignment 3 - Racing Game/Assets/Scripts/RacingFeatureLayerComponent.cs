@@ -60,8 +60,6 @@ public class RacingFeatureLayerComponent : MonoBehaviour
     [SerializeField] private GameObject checkpointPrefab;
     [SerializeField] private Transform checkpointParent;
     [SerializeField] private float maxCheckpointDistance;
-    public bool HasRaceStarted;
-    public Car Car;
     private List<Checkpoint> checkpointList;
 
     private void Start()
