@@ -5,9 +5,7 @@
 //
 
 using Esri.ArcGISMapsSDK.Components;
-using Esri.GameEngine.Elevation;
 using Esri.GameEngine.Geometry;
-using Esri.HPFramework;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
@@ -17,7 +15,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Splines;
 
-public class ArcGISFeatureLayerComponent : MonoBehaviour
+public class RacingFeatureLayerComponent : MonoBehaviour
 {
     [System.Serializable]
     public struct QueryLink
@@ -55,13 +53,15 @@ public class ArcGISFeatureLayerComponent : MonoBehaviour
     public List<GameObject> FeatureItems = new List<GameObject>();
     public QueryLink WebLink;
     [SerializeField] private List<int> exclusiveFeatureIDs;
-    [SerializeField] private SplineContainer splineContainer;
+    public SplineContainer SplineContainer;
     private ArcGISMapComponent mapComponent;
 
     [Space]
     [SerializeField] private GameObject checkpointPrefab;
     [SerializeField] private Transform checkpointParent;
     [SerializeField] private float maxCheckpointDistance;
+    public bool HasRaceStarted;
+    public Car Car;
     private List<Checkpoint> checkpointList;
 
     private void Start()
@@ -135,7 +135,7 @@ public class ArcGISFeatureLayerComponent : MonoBehaviour
                 Vector2 checkpointCoordinate = new Vector2((float)Convert.ToDouble(coordinate[0]), (float)Convert.ToDouble(coordinate[1]));
 
                 // If there are less than 2 checkpoints currently placed, then do not check to see if the checkpoints are too far
-                if (splineContainer.Splines[0].Count < 2)
+                if (SplineContainer.Splines[0].Count < 2)
                 {
                     CreateCheckpoint(checkpointCoordinate);
                     lastCheckpointCoordinate = checkpointCoordinate;
@@ -145,8 +145,7 @@ public class ArcGISFeatureLayerComponent : MonoBehaviour
 
                 // Keep creating intermediate checkpoints if the distance between them are too far
                 // This will make sure the track sits on the surface of the terrain better
-                int counter = 0;
-                while (checkpointsTooFar && counter++ < 20)
+                while (checkpointsTooFar)
                 {
                     // Get the direction of the new checkpoint
                     Vector2 checkpointDirection = checkpointCoordinate - lastCheckpointCoordinate;
@@ -166,11 +165,6 @@ public class ArcGISFeatureLayerComponent : MonoBehaviour
 
                     CreateCheckpoint(lastCheckpointCoordinate);
                 }
-
-                if (counter == 20)
-                {
-                    Debug.Log("Counter hit 20");
-                }
             }
         }
     }
@@ -178,7 +172,47 @@ public class ArcGISFeatureLayerComponent : MonoBehaviour
     private void CreateCheckpoint(Vector2 position)
     {
         Checkpoint checkpoint = Instantiate(checkpointPrefab, checkpointParent).GetComponent<Checkpoint>();
-        checkpoint.Initialize(splineContainer, mapComponent, new ArcGISPoint(position.x, position.y, new ArcGISSpatialReference(4326)));
+        checkpoint.Initialize(this, SplineContainer, mapComponent, new ArcGISPoint(position.x, position.y, new ArcGISSpatialReference(4326)));
         checkpointList.Add(checkpoint);
+    }
+
+    public Vector3 GetSplineKnotMidpoint (int index1, int index2)
+    {
+        int knotCount = SplineContainer.Splines[0].Count;
+
+        if (knotCount < 2)
+        {
+            return Vector3.zero;
+        }
+
+        // The last position in the spline is the same as the start for the dataset being used
+        // This gets around that and skips the last index
+        index1 %= knotCount - 1;
+        index2 %= knotCount - 1;
+
+        Vector3 position1 = SplineContainer.Splines[0][index1].Position;
+        Vector3 position2 = SplineContainer.Splines[0][index2].Position;
+        return (position1 + position2) * 0.5f;
+    }
+
+    public Quaternion GetSplineKnotRotation(int index1, int index2)
+    {
+        int knotCount = SplineContainer.Splines[0].Count;
+
+        if (knotCount < 2)
+        {
+            return Quaternion.identity;
+        }
+
+        // The last position in the spline is the same as the start for the dataset being used
+        // This gets around that and skips the last index
+        index1 %= knotCount - 1;
+        index2 %= knotCount - 1;
+
+        Vector3 position1 = SplineContainer.Splines[0][index1].Position;
+        Vector3 position2 = SplineContainer.Splines[0][index2].Position;
+        Vector3 direction = position1 - position2;
+        float angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+        return Quaternion.Euler(0f, angle, 0f);
     }
 }
