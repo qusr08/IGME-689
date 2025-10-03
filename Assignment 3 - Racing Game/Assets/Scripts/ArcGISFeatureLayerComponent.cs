@@ -135,7 +135,7 @@ public class ArcGISFeatureLayerComponent : MonoBehaviour
                 Vector2 checkpointCoordinate = new Vector2((float)Convert.ToDouble(coordinate[0]), (float)Convert.ToDouble(coordinate[1]));
 
                 // If there are less than 2 checkpoints currently placed, then do not check to see if the checkpoints are too far
-                if (splineContainer.Splines[0].Count <= 1)
+                if (splineContainer.Splines[0].Count < 2)
                 {
                     CreateCheckpoint(checkpointCoordinate);
                     lastCheckpointCoordinate = checkpointCoordinate;
@@ -149,7 +149,7 @@ public class ArcGISFeatureLayerComponent : MonoBehaviour
                 while (checkpointsTooFar && counter++ < 20)
                 {
                     // Get the direction of the new checkpoint
-                    Vector2 checkpointDirection = lastCheckpointCoordinate - checkpointCoordinate;
+                    Vector2 checkpointDirection = checkpointCoordinate - lastCheckpointCoordinate;
 
                     // If the distance to the new checkpoint is larger than the max checkpoint distance, then increase the checkpoint position by the max distance
                     // This will gradually place checkpoints along a line until the current checkpoint coordinate is close enough to the last checkpoint coordinate
@@ -169,7 +169,7 @@ public class ArcGISFeatureLayerComponent : MonoBehaviour
 
                 if (counter == 20)
                 {
-                    Debug.Log("Counter HIT");
+                    Debug.Log("Counter hit 20");
                 }
             }
         }

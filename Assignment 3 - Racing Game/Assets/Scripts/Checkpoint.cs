@@ -9,7 +9,6 @@ public class Checkpoint : MonoBehaviour
 {
     private int splineIndex;
     private SplineContainer splineContainer;
-    private ArcGISElevationMonitor elevationMonitor;
     private ArcGISMapComponent mapComponent;
 
     public void Initialize(SplineContainer splineContainer, ArcGISMapComponent mapComponent, ArcGISPoint point)
