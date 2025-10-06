@@ -570,7 +570,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 7495443279060062592}
-  racingFeatureLayerComponent: {fileID: 0}
   axleInfos:
   - LeftWheel:
       Collider: {fileID: 2716459193614891142}
@@ -580,7 +579,7 @@ MonoBehaviour:
       Collider: {fileID: 4795950753765878369}
       MeshTransform: {fileID: 948405438201742482}
       SteerSmoothingSpeed: 0.2
-    IsMotor: 0
+    IsMotor: 1
     IsSteering: 1
   - LeftWheel:
       Collider: {fileID: 3145262460232535540}
@@ -593,8 +592,15 @@ MonoBehaviour:
     IsMotor: 1
     IsSteering: 0
   maxMotorTorque: 800
-  maxBrakeTorque: 800
-  maxSteeringAngle: 30
+  maxBrakeTorque: 1200
+  maxSteeringAngle: 50
+  carCamera: {fileID: 0}
+  cameraHeight: 5
+  cameraDistance: 11
+  cameraTilt: 0.25
+  cameraSmoothingSpeed: 0.4
+  racingFeatureLayerComponent: {fileID: 0}
+  currentCheckpoint: 0
   locked: 1
 --- !u!1 &3962000127133956386
 GameObject:

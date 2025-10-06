@@ -214,8 +214,8 @@ MonoBehaviour:
     m_DataPoints: []
   m_Spline: {fileID: 125618980}
   m_SegmentsPerMeter: 1
-  m_Mesh: {fileID: 790014021}
-  m_TextureScale: 1
+  m_Mesh: {fileID: 894646605}
+  m_TextureScale: 200
 --- !u!33 &125618982
 MeshFilter:
   m_ObjectHideFlags: 8
@@ -413,13 +413,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 157207112}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.9997951, y: -0, z: -0, w: -0.020244468}
+  m_LocalRotation: {x: 0.9999286, y: -0, z: -0, w: -0.011955102}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 182.32, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 181.37, y: 0, z: 0}
 --- !u!114 &157207115
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -642,7 +642,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1056029836}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!43 &790014021
+--- !u!43 &894646605
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -863,7 +863,7 @@ MonoBehaviour:
   checkpointPrefab: {fileID: 949415748191084688, guid: 96bcf565879b91847bb1db3bc03cd4c7, type: 3}
   checkpointParent: {fileID: 719437945}
   maxCheckpointDistance: 0.0003
-  minCheckpointDistance: 0.00015
+  minCheckpointDistance: 0.0002
 --- !u!1 &1823688464
 GameObject:
   m_ObjectHideFlags: 0
@@ -951,12 +951,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1823688464}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.10452846, y: 0, z: 0, w: 0.9945219}
-  m_LocalPosition: {x: 0, y: 5, z: -9}
+  m_LocalRotation: {x: 0.08011448, y: -0.6388008, z: 0.06714067, w: 0.7622384}
+  m_LocalPosition: {x: -407.73865, y: 90.9, z: -5.573662}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1904441743}
+  m_Father: {fileID: 1993192861}
   m_LocalEulerAnglesHint: {x: 12, y: 0, z: 0}
 --- !u!114 &1823688468
 MonoBehaviour:
@@ -1169,6 +1169,10 @@ PrefabInstance:
       value: Car
       objectReference: {fileID: 0}
     - target: {fileID: 4912911083850976488, guid: 133308cdb8794744caaef026bde9e1f0, type: 3}
+      propertyPath: carCamera
+      value: 
+      objectReference: {fileID: 1823688466}
+    - target: {fileID: 4912911083850976488, guid: 133308cdb8794744caaef026bde9e1f0, type: 3}
       propertyPath: acceleration
       value: 400
       objectReference: {fileID: 0}
@@ -1182,10 +1186,7 @@ PrefabInstance:
       objectReference: {fileID: 1056029837}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 2792218741957914664, guid: 133308cdb8794744caaef026bde9e1f0, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1823688467}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 133308cdb8794744caaef026bde9e1f0, type: 3}
 --- !u!4 &1904441743 stripped
@@ -1224,7 +1225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   apiKey: AAPTxy8BH1VEsoebNVZXo8HurI27Gh7eeDxE8lDN-ysUtjcOkJ7-og1dfRUEOubB2JbTqROJ1tc0zBCUOe15-dfF3TsF6ZtICiZy2Cilxq46Ke4wa7ZP88FVpROWfL2WjQKgMoBOfhSFuezs3EJ9wzt1UN53r0qsZw1n-dWef_f91WUeQZbY4NPwMtaqekm1NALvJegVDmjQMiNGgTCYkvnMoVivS8wFFaUW36dC5Jm4nmo.AT1_FuolWxkR
-  basemap: https://basemapstyles-api.arcgis.com/arcgis/rest/services/styles/v2/webmaps/arcgis/modern-antique
+  basemap: https://basemapstyles-api.arcgis.com/arcgis/rest/services/styles/v2/webmaps/arcgis/streets-relief
   basemapType: 0
   basemapAuthentication:
     ConfigurationIndex: -1
@@ -1319,6 +1320,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1823688467}
   - {fileID: 1904441743}
   - {fileID: 1056029836}
   m_Father: {fileID: 0}

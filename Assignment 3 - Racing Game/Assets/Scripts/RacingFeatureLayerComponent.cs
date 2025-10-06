@@ -64,6 +64,8 @@ public class RacingFeatureLayerComponent : MonoBehaviour
 	private List<Checkpoint> checkpointList;
 	private List<Vector2> checkpointPositions;
 
+	public int CheckpointCount => checkpointList.Count;
+
 	private void Start ( )
 	{
 		checkpointList = new List<Checkpoint>( );

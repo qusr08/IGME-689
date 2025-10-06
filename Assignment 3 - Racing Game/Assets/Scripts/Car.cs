@@ -1,21 +1,42 @@
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class Car : MonoBehaviour
 {
 	[SerializeField] private Rigidbody rigidBody;
-	[SerializeField] private RacingFeatureLayerComponent racingFeatureLayerComponent;
-	[Space]
 	[SerializeField] private List<AxleInfo> axleInfos;
 	[SerializeField] private float maxMotorTorque;
 	[SerializeField] private float maxBrakeTorque;
 	[SerializeField] private float maxSteeringAngle;
+	[Space]
+	[SerializeField] private Camera carCamera;
+	[SerializeField] private float cameraHeight;
+	[SerializeField] private float cameraDistance;
+	[SerializeField, Range(0f, 1f)] private float cameraTilt;
+	[SerializeField, Range(0f, 1f)] private float cameraSmoothingSpeed;
+	[Space]
+	[SerializeField] private RacingFeatureLayerComponent racingFeatureLayerComponent;
+	[SerializeField] private int currentCheckpoint;
 	[SerializeField] private bool locked;
+
+	private Vector3 cameraPosition;
+	private Vector3 cameraToPosition;
+	private Vector3 cameraVelocity;
+	private Vector2 input;
+
+	private void Start ( )
+	{
+		currentCheckpoint = 0;
+	}
 
 	private void Update ( )
 	{
 		// Prevent the car from gaining gravity speed when it is locked
 		rigidBody.maxLinearVelocity = locked ? 0f : 9999f;
+
+		// Get input from player controls
+		input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
 		// When the race has not started, set the position and rotation of the car
 		if (!locked)
@@ -28,34 +49,38 @@ public class Car : MonoBehaviour
 		Vector3 position = racingFeatureLayerComponent.GetSplineKnotMidpoint(index1, index2);
 		Quaternion rotation = racingFeatureLayerComponent.GetSplineKnotRotation(index1, index2);
 		transform.SetPositionAndRotation(position + new Vector3(0f, 8f, 0f), rotation);
+		UpdateCameraPosition(0f, instantly: true);
 	}
 
 	private void FixedUpdate ( )
 	{
+		float steerAngleDegrees = maxSteeringAngle * input.x;
+		float motorTorque = maxMotorTorque * Mathf.Max(0, input.y);
+		float brakeTorque = maxBrakeTorque * -Mathf.Min(0, input.y);
+
 		if (locked)
 		{
 			return;
 		}
 
+		UpdateCameraPosition(steerAngleDegrees);
+
 		foreach (AxleInfo axleInfo in axleInfos)
 		{
-			float verticalAxis = Input.GetAxis("Vertical");
-			float horizontalAxis = Input.GetAxis("Horizontal");
-
 			if (axleInfo.IsSteering)
 			{
-				axleInfo.LeftWheel.SteerAngleSmoothDamp = maxSteeringAngle * horizontalAxis;
-				axleInfo.RightWheel.SteerAngleSmoothDamp = maxSteeringAngle * horizontalAxis;
+				axleInfo.LeftWheel.SteerAngleSmoothDamp = steerAngleDegrees;
+				axleInfo.RightWheel.SteerAngleSmoothDamp = steerAngleDegrees;
 			}
 
 			if (axleInfo.IsMotor)
 			{
-				axleInfo.LeftWheel.MotorTorque = maxMotorTorque * Mathf.Max(0, verticalAxis);
-				axleInfo.RightWheel.MotorTorque = maxMotorTorque * Mathf.Max(0, verticalAxis);
+				axleInfo.LeftWheel.MotorTorque = motorTorque;
+				axleInfo.RightWheel.MotorTorque = motorTorque;
 			}
 
-			axleInfo.LeftWheel.BrakeTorque = maxBrakeTorque * -Mathf.Min(0, verticalAxis);
-			axleInfo.RightWheel.BrakeTorque = maxBrakeTorque * -Mathf.Min(0, verticalAxis);
+			axleInfo.LeftWheel.BrakeTorque = brakeTorque;
+			axleInfo.RightWheel.BrakeTorque = brakeTorque;
 
 			axleInfo.LeftWheel.UpdateMeshTransform( );
 			axleInfo.RightWheel.UpdateMeshTransform( );
@@ -71,9 +96,38 @@ public class Car : MonoBehaviour
 		}
 	}
 
-	private float Remap (float value, float from1, float to1, float from2, float to2)
+	private void OnTriggerEnter (Collider other)
 	{
-		return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
+		if (other.TryGetComponent(out Checkpoint checkpoint))
+		{
+			if (checkpoint.SplineIndex == currentCheckpoint)
+			{
+				currentCheckpoint++;
+			}
+
+			if (currentCheckpoint == racingFeatureLayerComponent.CheckpointCount)
+			{
+				Debug.Log("WIN");
+			}
+		}
+	}
+
+	private void UpdateCameraPosition (float angle, bool instantly = false)
+	{
+		float cameraAngleRadians = (transform.eulerAngles.y + angle) * Mathf.Deg2Rad;
+		cameraToPosition = new Vector3(cameraDistance * -Mathf.Sin(cameraAngleRadians), cameraHeight, cameraDistance * -Mathf.Cos(cameraAngleRadians));
+
+		if (instantly)
+		{
+			cameraPosition = cameraToPosition;
+		}
+		else
+		{
+			cameraPosition = Vector3.SmoothDamp(cameraPosition, cameraToPosition, ref cameraVelocity, cameraSmoothingSpeed);
+		}
+
+		carCamera.transform.position = transform.position + cameraPosition;
+		carCamera.transform.LookAt(transform.position + ((1 - cameraTilt) * cameraHeight * Vector3.up));
 	}
 }
 

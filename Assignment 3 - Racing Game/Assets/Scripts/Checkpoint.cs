@@ -7,7 +7,8 @@ using UnityEngine.Splines;
 
 public class Checkpoint : MonoBehaviour
 {
-    private int splineIndex;
+    public int SplineIndex { get; private set; }
+
     private RacingFeatureLayerComponent racingFeatureLayerComponent;
     private SplineContainer splineContainer;
     private ArcGISMapComponent mapComponent;
@@ -19,7 +20,7 @@ public class Checkpoint : MonoBehaviour
         this.mapComponent = mapComponent;
 
         // Add the knot to the spline
-        splineIndex = splineContainer.Splines[0].Count;
+        SplineIndex = splineContainer.Splines[0].Count;
         BezierKnot bezierKnot = new BezierKnot();
         bezierKnot.Position = mapComponent.GeographicToEngine(point);
         transform.SetPositionAndRotation(bezierKnot.Position, Quaternion.identity);
@@ -34,9 +35,9 @@ public class Checkpoint : MonoBehaviour
     private void UpdateSplinePosition(ArcGISPoint point)
     {
         // Update the spline knot at the specified index for this checkpoint
-        BezierKnot bezierKnot = splineContainer.Splines[0][splineIndex];
+        BezierKnot bezierKnot = splineContainer.Splines[0][SplineIndex];
         bezierKnot.Position = mapComponent.GeographicToEngine(point);
-        transform.SetPositionAndRotation(bezierKnot.Position, racingFeatureLayerComponent.GetSplineKnotRotation(splineIndex + 1, splineIndex));
-        splineContainer.Splines[0][splineIndex] = bezierKnot;
+        transform.SetPositionAndRotation(bezierKnot.Position, racingFeatureLayerComponent.GetSplineKnotRotation(SplineIndex + 1, SplineIndex));
+        splineContainer.Splines[0][SplineIndex] = bezierKnot;
     }
 }
