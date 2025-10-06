@@ -61,7 +61,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 1
+    m_Stiffness: 2
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -298,13 +298,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 1
+    m_Stiffness: 2
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 1
+    m_Stiffness: 4
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -484,7 +484,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 1
+    m_Stiffness: 2
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -504,6 +504,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2792218741957914664}
   - component: {fileID: 7495443279060062592}
+  - component: {fileID: 4912911083850976488}
   m_Layer: 0
   m_Name: Free Racing Car
   m_TagString: Untagged
@@ -556,6 +557,45 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4912911083850976488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3311311803080157842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdd133fa6a831064f94dc4412ff205b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rigidBody: {fileID: 7495443279060062592}
+  racingFeatureLayerComponent: {fileID: 0}
+  axleInfos:
+  - LeftWheel:
+      Collider: {fileID: 2716459193614891142}
+      MeshTransform: {fileID: 3794951908810334882}
+      SteerSmoothingSpeed: 0.2
+    RightWheel:
+      Collider: {fileID: 4795950753765878369}
+      MeshTransform: {fileID: 948405438201742482}
+      SteerSmoothingSpeed: 0.2
+    IsMotor: 0
+    IsSteering: 1
+  - LeftWheel:
+      Collider: {fileID: 3145262460232535540}
+      MeshTransform: {fileID: 9188640840458259854}
+      SteerSmoothingSpeed: 0.2
+    RightWheel:
+      Collider: {fileID: 1057494946909100755}
+      MeshTransform: {fileID: 28636839611146925}
+      SteerSmoothingSpeed: 0.2
+    IsMotor: 1
+    IsSteering: 0
+  maxMotorTorque: 800
+  maxBrakeTorque: 800
+  maxSteeringAngle: 30
+  locked: 1
 --- !u!1 &3962000127133956386
 GameObject:
   m_ObjectHideFlags: 0
@@ -611,13 +651,13 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 1
+    m_Stiffness: 2
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 1
+    m_Stiffness: 4
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
