@@ -11,67 +11,68 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 using UnityEngine.Splines;
 
 public class RacingFeatureLayerComponent : MonoBehaviour
 {
-	[System.Serializable]
-	public struct QueryLink
-	{
-		public string Link;
-		public string[ ] RequestHeaders;
-	}
-
-	[System.Serializable]
-	public class GeometryData
-	{
-		public double Latitude;
-		public double Longitude;
-	}
-
-	[System.Serializable]
-	public class PropertyData
-	{
-		public List<string> PropertyNames = new List<string>( );
-		public List<string> Data = new List<string>( );
-	}
-
-	[System.Serializable]
-	public class FeatureQueryData
-	{
-		public GeometryData Geometry = new GeometryData( );
-		public PropertyData Properties = new PropertyData( );
-	}
-
-	private List<FeatureQueryData> Features = new List<FeatureQueryData>( );
-	private FeatureData featureInfo;
-	[SerializeField] private GameObject featurePrefab;
-	private JToken[ ] jFeatures;
-
-	public List<GameObject> FeatureItems = new List<GameObject>( );
-	public QueryLink WebLink;
+	[SerializeField] private QueryLink WebLink;
 	[SerializeField] private List<int> exclusiveFeatureIDs;
 	public SplineContainer SplineContainer;
-	private ArcGISMapComponent mapComponent;
-
+	[SerializeField] private Car car;
 	[Space]
 	[SerializeField] private GameObject checkpointPrefab;
 	[SerializeField] private Transform checkpointParent;
 	[SerializeField] private float maxCheckpointDistance;
 	[SerializeField] private float minCheckpointDistance;
-	private List<Checkpoint> checkpointList;
+	[Space]
+	[SerializeField] private TextMeshProUGUI countdownText;
+	[SerializeField] private TextMeshProUGUI timerText;
+
+	private ArcGISMapComponent mapComponent;
+	private JToken[ ] jFeatures;
+
+	public List<Checkpoint> CheckpointList { get; private set; }
 	private List<Vector2> checkpointPositions;
 
-	public int CheckpointCount => checkpointList.Count;
+	private DateTime startTime;
+	private float raceLoadingTimer;
+	private bool isRacing;
+	private bool raceCountdownStarted;
 
 	private void Start ( )
 	{
-		checkpointList = new List<Checkpoint>( );
+		CheckpointList = new List<Checkpoint>( );
 		checkpointPositions = new List<Vector2>( );
 		mapComponent = FindFirstObjectByType<ArcGISMapComponent>( );
+
+		ResetRaceLoadingTimer( );
+		isRacing = false;
+		raceCountdownStarted = false;
+		car.IsLocked = true;
+
 		StartCoroutine(nameof(GetFeatures));
+	}
+
+	private void Update ( )
+	{
+		if (isRacing)
+		{
+			timerText.text = (DateTime.Now - startTime).ToString("mm':'ss'.'fff");
+		}
+
+		if (!raceCountdownStarted)
+		{
+			raceLoadingTimer -= Time.deltaTime;
+			if (raceLoadingTimer <= 0)
+			{
+				raceCountdownStarted = true;
+				StartCoroutine(StartRace( ));
+			}
+		}
 	}
 
 	public void CreateLink (string link)
@@ -188,7 +189,7 @@ public class RacingFeatureLayerComponent : MonoBehaviour
 
 		Checkpoint checkpoint = Instantiate(checkpointPrefab, checkpointParent).GetComponent<Checkpoint>( );
 		checkpoint.Initialize(this, SplineContainer, mapComponent, new ArcGISPoint(position.x, position.y, new ArcGISSpatialReference(4326)));
-		checkpointList.Add(checkpoint);
+		CheckpointList.Add(checkpoint);
 		checkpointPositions.Add(position);
 	}
 
@@ -231,4 +232,44 @@ public class RacingFeatureLayerComponent : MonoBehaviour
 		float angle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
 		return Quaternion.Euler(0f, angle, 0f);
 	}
+
+	public void ResetRaceLoadingTimer ( )
+	{
+		raceLoadingTimer = 2f;
+	}
+
+	private IEnumerator StartRace ( )
+	{
+		countdownText.text = "3";
+		yield return new WaitForSeconds(1f);
+		countdownText.text = "2";
+		yield return new WaitForSeconds(1f);
+		countdownText.text = "1";
+		yield return new WaitForSeconds(1f);
+		countdownText.text = "GO!";
+		isRacing = true;
+		car.IsLocked = false;
+		startTime = DateTime.Now;
+		yield return new WaitForSeconds(2f);
+		countdownText.text = "";
+	}
+
+	public void TriggerWin ( )
+	{
+		isRacing = false;
+		countdownText.text = timerText.text;
+		timerText.text = "";
+	}
+
+	public void TriggerLose ( )
+	{
+		SceneManager.LoadScene(SceneManager.GetActiveScene( ).buildIndex);
+	}
+}
+
+[Serializable]
+public struct QueryLink
+{
+	public string Link;
+	public string[ ] RequestHeaders;
 }

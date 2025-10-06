@@ -55,7 +55,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 1
+    m_Stiffness: 2
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
@@ -298,7 +298,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 2
+    m_Stiffness: 4
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
@@ -478,7 +478,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 1
+    m_Stiffness: 2
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
@@ -592,16 +592,16 @@ MonoBehaviour:
     IsMotor: 1
     IsSteering: 0
   maxMotorTorque: 800
-  maxBrakeTorque: 1200
+  maxBrakeTorque: 800
   maxSteeringAngle: 50
   carCamera: {fileID: 0}
   cameraHeight: 5
   cameraDistance: 11
   cameraTilt: 0.25
   cameraSmoothingSpeed: 0.4
-  racingFeatureLayerComponent: {fileID: 0}
+  racingComponent: {fileID: 0}
   currentCheckpoint: 0
-  locked: 1
+  IsLocked: 1
 --- !u!1 &3962000127133956386
 GameObject:
   m_ObjectHideFlags: 0
@@ -657,7 +657,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.8
     m_AsymptoteValue: 0.5
-    m_Stiffness: 2
+    m_Stiffness: 4
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1

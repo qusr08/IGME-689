@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
 public class Car : MonoBehaviour
@@ -16,9 +15,9 @@ public class Car : MonoBehaviour
 	[SerializeField, Range(0f, 1f)] private float cameraTilt;
 	[SerializeField, Range(0f, 1f)] private float cameraSmoothingSpeed;
 	[Space]
-	[SerializeField] private RacingFeatureLayerComponent racingFeatureLayerComponent;
+	[SerializeField] private RacingFeatureLayerComponent racingComponent;
 	[SerializeField] private int currentCheckpoint;
-	[SerializeField] private bool locked;
+	public bool IsLocked;
 
 	private Vector3 cameraPosition;
 	private Vector3 cameraToPosition;
@@ -33,21 +32,21 @@ public class Car : MonoBehaviour
 	private void Update ( )
 	{
 		// Prevent the car from gaining gravity speed when it is locked
-		rigidBody.maxLinearVelocity = locked ? 0f : 9999f;
+		rigidBody.maxLinearVelocity = IsLocked ? 0f : 9999f;
 
 		// Get input from player controls
 		input = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
 		// When the race has not started, set the position and rotation of the car
-		if (!locked)
+		if (!IsLocked)
 		{
 			return;
 		}
 
-		int index1 = racingFeatureLayerComponent.SplineContainer.Splines[0].Count - 2;
-		int index2 = racingFeatureLayerComponent.SplineContainer.Splines[0].Count - 3;
-		Vector3 position = racingFeatureLayerComponent.GetSplineKnotMidpoint(index1, index2);
-		Quaternion rotation = racingFeatureLayerComponent.GetSplineKnotRotation(index1, index2);
+		int index1 = racingComponent.SplineContainer.Splines[0].Count - 1;
+		int index2 = racingComponent.SplineContainer.Splines[0].Count - 2;
+		Vector3 position = racingComponent.GetSplineKnotMidpoint(index1, index2);
+		Quaternion rotation = racingComponent.GetSplineKnotRotation(index1, index2);
 		transform.SetPositionAndRotation(position + new Vector3(0f, 8f, 0f), rotation);
 		UpdateCameraPosition(0f, instantly: true);
 	}
@@ -58,7 +57,7 @@ public class Car : MonoBehaviour
 		float motorTorque = maxMotorTorque * Mathf.Max(0, input.y);
 		float brakeTorque = maxBrakeTorque * -Mathf.Min(0, input.y);
 
-		if (locked)
+		if (IsLocked)
 		{
 			return;
 		}
@@ -92,7 +91,7 @@ public class Car : MonoBehaviour
 		// The player loses when the car falls off the track and hits the ground
 		if (collision.gameObject.name.Contains("ArcGISGameObject"))
 		{
-			Debug.Log("LOSE");
+			racingComponent.TriggerLose( );
 		}
 	}
 
@@ -100,14 +99,14 @@ public class Car : MonoBehaviour
 	{
 		if (other.TryGetComponent(out Checkpoint checkpoint))
 		{
-			if (checkpoint.SplineIndex == currentCheckpoint)
+			if (checkpoint.SplineIndex != currentCheckpoint)
 			{
-				currentCheckpoint++;
+				return;
 			}
 
-			if (currentCheckpoint == racingFeatureLayerComponent.CheckpointCount)
+			if (++currentCheckpoint == racingComponent.CheckpointList.Count)
 			{
-				Debug.Log("WIN");
+				racingComponent.TriggerWin( );
 			}
 		}
 	}
@@ -116,15 +115,7 @@ public class Car : MonoBehaviour
 	{
 		float cameraAngleRadians = (transform.eulerAngles.y + angle) * Mathf.Deg2Rad;
 		cameraToPosition = new Vector3(cameraDistance * -Mathf.Sin(cameraAngleRadians), cameraHeight, cameraDistance * -Mathf.Cos(cameraAngleRadians));
-
-		if (instantly)
-		{
-			cameraPosition = cameraToPosition;
-		}
-		else
-		{
-			cameraPosition = Vector3.SmoothDamp(cameraPosition, cameraToPosition, ref cameraVelocity, cameraSmoothingSpeed);
-		}
+		cameraPosition = instantly ? cameraToPosition : Vector3.SmoothDamp(cameraPosition, cameraToPosition, ref cameraVelocity, cameraSmoothingSpeed);
 
 		carCamera.transform.position = transform.position + cameraPosition;
 		carCamera.transform.LookAt(transform.position + ((1 - cameraTilt) * cameraHeight * Vector3.up));
