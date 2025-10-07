@@ -45,13 +45,13 @@ MonoBehaviour:
     m_Value: 0
   top:
     m_OverrideState: 1
-    m_Value: {r: 0.8773585, g: 0.8773585, b: 0.8773585, a: 1}
+    m_Value: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
   middle:
     m_OverrideState: 1
-    m_Value: {r: 0.7735849, g: 0.7735849, b: 0.7735849, a: 1}
+    m_Value: {r: 0.5283019, g: 0.5283019, b: 0.5283019, a: 1}
   bottom:
     m_OverrideState: 1
-    m_Value: {r: 0.6981132, g: 0.6981132, b: 0.6981132, a: 1}
+    m_Value: {r: 0.13207549, g: 0.13207549, b: 0.13207549, a: 1}
   gradientDiffusion:
     m_OverrideState: 0
     m_Value: 1
