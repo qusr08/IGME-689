@@ -25,8 +25,11 @@ public class Airport : MonoBehaviour
 	{
 		locationComponent = GetComponent<ArcGISLocationComponent>( );
 		ArcGISPoint location = locationComponent.Position;
-		locationComponent.Position = new ArcGISPoint(location.X, location.Y, 0f, location.SpatialReference);
-		locationComponent.Rotation = new ArcGISRotation(0f, 90f, 0f);
+		if (location != null)
+		{
+            locationComponent.Position = new ArcGISPoint(location.X, location.Y, 0f, location.SpatialReference);
+            locationComponent.Rotation = new ArcGISRotation(0f, 90f, 0f);
+        }
 
 		hpTransform = GetComponent<HPTransform>( );
 		hpTransform.LocalScale = new float3(size, height, size);
