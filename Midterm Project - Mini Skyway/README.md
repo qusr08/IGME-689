@@ -1,2 +1,3 @@
-Airplane Asset: https://free3d.com/3d-model/airplane-v1--79106.html
-World Airport Data: https://hub.arcgis.com/datasets/esri-de-content::world-airports/explore?location=0.066830%2C0.049351%2C2.15&showTable=true
+# Links
+* **Airplane Model:** https://free3d.com/3d-model/airplane-v1--79106.html
+* **World Airport Data:** https://hub.arcgis.com/datasets/esri-de-content::world-airports/explore?location=0.066830%2C0.049351%2C2.15&showTable=true
