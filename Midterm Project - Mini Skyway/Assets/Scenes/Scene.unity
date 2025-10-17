@@ -385,7 +385,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   apiKey: AAPTxy8BH1VEsoebNVZXo8HurI27Gh7eeDxE8lDN-ysUtjcOkJ7-og1dfRUEOubB2JbTqROJ1tc0zBCUOe15-dfF3TsF6ZtICiZy2Cilxq46Ke4wa7ZP88FVpROWfL2WjQKgMoBOfhSFuezs3EJ9wzt1UN53r0qsZw1n-dWef_f91WUeQZbY4NPwMtaqekm1NALvJegVDmjQMiNGgTCYkvnMoVivS8wFFaUW36dC5Jm4nmo.AT1_FuolWxkR
-  basemap: https://basemapstyles-api.arcgis.com/arcgis/rest/services/styles/v2/webmaps/arcgis/imagery/standard
+  basemap: 
   basemapType: 0
   basemapAuthentication:
     ConfigurationIndex: -1
@@ -395,13 +395,13 @@ MonoBehaviour:
     - Name: Terrain 3D
       Type: 0
       Source: https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer
-      IsEnabled: 0
+      IsEnabled: 1
       Authentication:
         ConfigurationIndex: -1
       AuthenticationType: 1
-    ExaggerationFactor: 1
+    ExaggerationFactor: 0
     MeshModifications:
-      IsEnabled: 0
+      IsEnabled: 1
       MeshModifications: []
   enableExtent: 0
   extent:
@@ -419,7 +419,29 @@ MonoBehaviour:
       x: 0
       y: 0
     UseOriginAsCenter: 0
-  layers: []
+  layers:
+  - Name: Mini Skyway
+    Type: 6
+    Source: https://fa4931.maps.arcgis.com/sharing/rest/content/items/490ed4e3041343bd86ff75be04f9cf4d/resources/styles/root.json?f=pjson
+    Opacity: 1
+    IsVisible: 1
+    Authentication:
+      ConfigurationIndex: 0
+    AuthenticationType: 1
+    BuildingSceneLayerFilter:
+      ActiveBuildingAttributeFilterIndex: 0
+      BuildingAttributeFilters: []
+      IsBuildingAttributeFilterEnabled: 0
+      IsBuildingDisciplinesCategoriesFilterEnabled: 0
+      EnabledCategories: 
+      EnabledDisciplines: 
+    MeshModifications:
+      IsEnabled: 0
+      MeshModifications: []
+    SpatialFeatureFilter:
+      IsEnabled: 0
+      Polygons: []
+      Type: 0
   originPosition:
     X: 0
     Y: -90
