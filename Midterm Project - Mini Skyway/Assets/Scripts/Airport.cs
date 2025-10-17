@@ -18,16 +18,26 @@ public class Airport : MonoBehaviour
 	[SerializeField, Min(1)] private int size;
 	[Space]
 	[SerializeField] private AirportType _airportType;
+	[SerializeField] private AirportData _data;
 
 	public AirportType AirportType { get => _airportType; private set => _airportType = value; }
+	public ArcGISPoint Coordinates { get => locationComponent.Position; set => locationComponent.Position = value; }
+	public AirportData Data
+	{
+		get => _data;
+		set
+		{
+			_data = value;
+			Coordinates = new ArcGISPoint(_data.Longitude, _data.Latitude, 0f, Coordinates.SpatialReference);
+		}
+	}
 
 	private void OnValidate ( )
 	{
 		locationComponent = GetComponent<ArcGISLocationComponent>( );
-		ArcGISPoint location = locationComponent.Position;
-		if (location != null)
+		if (Coordinates != null)
 		{
-            locationComponent.Position = new ArcGISPoint(location.X, location.Y, 0f, location.SpatialReference);
+			Coordinates = new ArcGISPoint(Coordinates.X, Coordinates.Y, 0f, Coordinates.SpatialReference);
             locationComponent.Rotation = new ArcGISRotation(0f, 90f, 0f);
         }
 
