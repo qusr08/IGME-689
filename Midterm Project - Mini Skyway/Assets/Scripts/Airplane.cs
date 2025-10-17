@@ -1,0 +1,28 @@
+using Esri.ArcGISMapsSDK.Components;
+using Esri.ArcGISMapsSDK.Utils.GeoCoord;
+using Esri.GameEngine.Geometry;
+using Esri.HPFramework;
+using Unity.Mathematics;
+using UnityEngine;
+
+public class Airplane : MonoBehaviour
+{
+	[SerializeField] private ArcGISLocationComponent locationComponent;
+	[SerializeField] private HPTransform hpTransform;
+	[SerializeField, Min(1)] private int size;
+	[SerializeField, Min(0f)] private int altitude;
+
+	private void OnValidate()
+	{
+		locationComponent = GetComponent<ArcGISLocationComponent>();
+		ArcGISPoint location = locationComponent.Position;
+		if (location != null)
+		{
+			locationComponent.Position = new ArcGISPoint(location.X, location.Y, altitude, location.SpatialReference);
+			locationComponent.Rotation = new ArcGISRotation(0f, 180f, 0f);
+		}
+
+		hpTransform = GetComponent<HPTransform>();
+		hpTransform.LocalScale = new float3(size, size, size);
+	}
+}

@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class AirportDataLoader
 {
-	// https://hub.arcgis.com/datasets/esri-de-content::world-airports/explore?location=0.066830%2C0.049351%2C2.15&showTable=true
 	private const string WORLD_AIRPORT_CSV_PATH = "Assets/Data/Airports28062017_189278238873247918.csv";
 
 	private enum AirportCSVIndex
