@@ -1,9 +1,8 @@
 using Esri.ArcGISMapsSDK.Components;
 using Esri.ArcGISMapsSDK.Utils.GeoCoord;
 using Esri.GameEngine.Geometry;
-using Esri.HPFramework;
-using Unity.Mathematics;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public enum AirportType
 {
@@ -13,14 +12,24 @@ public enum AirportType
 public class Airport : MonoBehaviour
 {
 	[SerializeField] private ArcGISLocationComponent locationComponent;
-	[SerializeField] private HPTransform hpTransform;
-	[SerializeField, Min(1)] private int height;
+	[SerializeField] private GameObject squareObject;
+	[SerializeField] private GameObject circleObject;
+	[SerializeField] private GameObject triangleObject;
 	[SerializeField, Min(1)] private int size;
 	[Space]
 	[SerializeField] private AirportType _airportType;
 	[SerializeField] private AirportData _data;
 
-	public AirportType AirportType { get => _airportType; private set => _airportType = value; }
+	public AirportType AirportType {
+		get => _airportType;
+		set
+		{
+			_airportType = value;
+			squareObject.SetActive(_airportType == AirportType.SQUARE);
+			circleObject.SetActive(_airportType == AirportType.CIRCLE);
+			triangleObject.SetActive(_airportType == AirportType.TRIANGLE);
+		}
+	}
 	public ArcGISPoint Coordinates { get => locationComponent.Position; set => locationComponent.Position = value; }
 	public AirportData Data
 	{
@@ -40,12 +49,14 @@ public class Airport : MonoBehaviour
 			Coordinates = new ArcGISPoint(Coordinates.X, Coordinates.Y, 0f, Coordinates.SpatialReference);
             locationComponent.Rotation = new ArcGISRotation(0f, 90f, 0f);
         }
-
-		hpTransform = GetComponent<HPTransform>( );
-		hpTransform.LocalScale = new float3(size, height, size);
 	}
 
-	private void OnMouseDown ( )
+    private void Start()
+    {
+        AirportType = (AirportType)Random.Range(0, 3);
+    }
+
+    private void OnMouseDown ( )
 	{
 		Debug.Log("CLICK");
 	}
