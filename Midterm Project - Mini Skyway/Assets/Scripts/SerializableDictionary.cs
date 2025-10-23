@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 using UnityEngine;
 
 [Serializable]
-public class AirportMeshDictionary : SerializableDictionary<AirportType, MeshRenderer> { }
+public class ShapeMeshDictionary : SerializableDictionary<ShapeType, MeshRenderer> { }
 
 public abstract class SerializableDictionaryBase<TKey, TValue, TValueStorage> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver
 {

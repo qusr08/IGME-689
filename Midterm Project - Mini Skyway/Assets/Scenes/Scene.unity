@@ -332,7 +332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bbba49acb848c0448694828560b07fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UpdateClippingPlanes: 1
+  UpdateClippingPlanes: 0
   UseCameraViewportProperties: 1
   verticalFov: 0
   horizontalFov: 0
@@ -474,13 +474,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410087039}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.08715578, y: 0, z: 0, w: 0.9961947}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 10, y: 0, z: 0}
 --- !u!114 &410087042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -889,7 +889,7 @@ MonoBehaviour:
   airplaneContainer: {fileID: 1147728754}
   flightPathContainer: {fileID: 481659465}
   canvasTransform: {fileID: 491999441}
-  airportPrefab: {fileID: 1761580953366517261, guid: f166699db11b9804b8e46995ff61ffae, type: 3}
+  airportPrefab: {fileID: 8385960529726928052, guid: f166699db11b9804b8e46995ff61ffae, type: 3}
   airplanePrefab: {fileID: 7356456094628933814, guid: 43f0c138800a7d5478c0df4f973455dd, type: 3}
   flightPathPrefab: {fileID: 6104170569045913435, guid: 147d118fba2299e44a73406980251fbd, type: 3}
   airportIndicatorPrefab: {fileID: 3051166177206936072, guid: 575739488d4161a46aafb024f11d852b, type: 3}

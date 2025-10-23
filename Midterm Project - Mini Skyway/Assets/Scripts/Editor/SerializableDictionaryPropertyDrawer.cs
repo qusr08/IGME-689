@@ -4,7 +4,7 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
-[CustomPropertyDrawer(typeof(AirportMeshDictionary))]
+[CustomPropertyDrawer(typeof(ShapeMeshDictionary))]
 public class AnySerializableDictionaryPropertyDrawer : SerializableDictionaryPropertyDrawer { }
 
 public class SerializableDictionaryPropertyDrawer : PropertyDrawer

@@ -81,8 +81,8 @@ public class AirportManager : MonoBehaviour
 		airport.Data = airportDataLoader.AirportDataList[dataIndex];
 		AirportList.Add(airport);
 
-		AirportIndicator indicator = Instantiate(airportIndicatorPrefab, canvasTransform).GetComponent<AirportIndicator>();
-		indicator.Target = airport;
+		//AirportIndicator indicator = Instantiate(airportIndicatorPrefab, canvasTransform).GetComponent<AirportIndicator>();
+		//indicator.Target = airport;
 	}
 
 	private void SpawnNewAirplane()
