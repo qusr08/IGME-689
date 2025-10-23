@@ -1,4 +1,6 @@
+using Esri.ArcGISMapsSDK.Components;
 using Esri.GameEngine.Geometry;
+using Esri.HPFramework;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -9,8 +11,11 @@ public class AirportManager : MonoBehaviour
 
 	[SerializeField] private Transform airportContainer;
 	[SerializeField] private Transform airplaneContainer;
+	[SerializeField] private Transform flightPathContainer;
 	[SerializeField] private GameObject airportPrefab;
 	[SerializeField] private GameObject airplanePrefab;
+	[SerializeField] private GameObject flightPathPrefab;
+	[SerializeField] private ArcGISMapComponent mapComponent;
 
 	private List<int> availableDataIndices;
 	private List<int> usedDataIndices;
@@ -22,6 +27,8 @@ public class AirportManager : MonoBehaviour
 
 	private void Awake()
 	{
+		mapComponent = FindFirstObjectByType<ArcGISMapComponent>();
+
 		AirportList = new List<Airport>();
 		AirplaneList = new List<Airplane>();
 		availableDataIndices = new List<int>();
@@ -38,14 +45,27 @@ public class AirportManager : MonoBehaviour
 
 	private void Start()
 	{
-		for (int i = 0; i < 50; i++)
+		for (int i = 0; i < 5; i++)
 		{
 			SpawnNewAirport();
 		}
 
-		for (int i = 0; i < 200; i++)
+		for (int i = 0; i < 5; i++)
 		{
 			SpawnNewAirplane();
+		}
+
+		for (int i = 0; i < AirportList.Count; i++)
+		{
+			for (int j = 0; j < AirportList.Count; j++)
+			{
+				if (i == j)
+				{
+					continue;
+				}
+
+				SpawnNewFlightPath(AirportList[i], AirportList[j]);
+			}
 		}
 	}
 
@@ -64,6 +84,27 @@ public class AirportManager : MonoBehaviour
 	{
 		Airplane airplane = Instantiate(airplanePrefab, airplaneContainer).GetComponent<Airplane>();
 		AirplaneList.Add(airplane);
+	}
+
+	private void SpawnNewFlightPath(Airport start, Airport end)
+	{
+		LineRenderer flightPath = Instantiate(flightPathPrefab, flightPathContainer).GetComponent<LineRenderer>();
+		int flightPathSegmentDistance = 10000;
+		int pointCount = (int)HaversineDistance(start.Coordinates, end.Coordinates) / flightPathSegmentDistance;
+
+		ArcGISPoint interCoord;
+		float t;
+		Vector3[] positions = new Vector3[pointCount + 1];
+		for (int i = 0; i <= pointCount; i++)
+		{
+			t = (float)i / pointCount;
+			interCoord = IntermediateCoordinate(start.Coordinates, end.Coordinates, t);
+			interCoord = new ArcGISPoint(interCoord.X, interCoord.Y, flightPath.startWidth / 2f, interCoord.SpatialReference);
+			positions[i] = mapComponent.View.GeographicToWorld(interCoord).ToVector3();
+		}
+
+		flightPath.positionCount = positions.Length;
+		flightPath.SetPositions(positions);
 	}
 
 	public Airport GetRandomAirport(Airport excludedAirport = null)

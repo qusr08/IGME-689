@@ -1,7 +1,6 @@
 using Esri.ArcGISMapsSDK.Components;
 using Esri.ArcGISMapsSDK.Utils.GeoCoord;
 using Esri.GameEngine.Geometry;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Airplane : MonoBehaviour
@@ -64,8 +63,7 @@ public class Airplane : MonoBehaviour
 	private void InterpolateBetweenAirports(float t)
 	{
 		ArcGISPoint interCoord = airportManager.IntermediateCoordinate(fromAirport.Coordinates, toAirport.Coordinates, t);
-		//float interAltitude = -4 * t * (t - 1) * altitude;
-		float interAltitude = (-1 * Mathf.Pow(2 * t - 1, 6) + 1) * altitude;
+		float interAltitude = (-1 * Mathf.Pow(2 * t - 1, 4) + 1) * altitude; // -4 * t * (t - 1) * altitude;
 
 		Coordinates = new ArcGISPoint(interCoord.X, interCoord.Y, interAltitude, Coordinates.SpatialReference);
 		Rotation = new ArcGISRotation(airportManager.Bearing(interCoord, toAirport.Coordinates), 180f, 0f);

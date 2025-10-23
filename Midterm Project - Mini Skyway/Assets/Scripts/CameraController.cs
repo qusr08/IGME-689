@@ -12,9 +12,9 @@ public class CameraController : MonoBehaviour
 	private Airplane targetAirplane;
 
 	private int altitude;
-	private Vector2 coordPoint;
-	private Vector2 toCoordPoint;
-	private Vector2 velocity;
+	//private Vector2 coordPoint;
+	//private Vector2 toCoordPoint;
+	//private Vector2 velocity;
 
 	public ArcGISPoint Coordinates { get => locationComponent.Position; private set => locationComponent.Position = value; }
 
@@ -29,14 +29,16 @@ public class CameraController : MonoBehaviour
 		if (targetAirplane == null)
 		{
 			targetAirplane = FindFirstObjectByType<Airplane>();
-			toCoordPoint = new Vector2((float)targetAirplane.Coordinates.X, (float)targetAirplane.Coordinates.Y);
-			coordPoint = toCoordPoint;
+			//toCoordPoint = new Vector2((float)targetAirplane.Coordinates.X, (float)targetAirplane.Coordinates.Y);
+			//coordPoint = toCoordPoint;
 		}
 		else
 		{
-			toCoordPoint = new Vector2((float) targetAirplane.Coordinates.X, (float) targetAirplane.Coordinates.Y);
-			coordPoint = Vector2.SmoothDamp(coordPoint, toCoordPoint, ref velocity, smoothing);
-			Coordinates = new ArcGISPoint(coordPoint.x, coordPoint.y, altitude, Coordinates.SpatialReference);
+			//toCoordPoint = new Vector2((float) targetAirplane.Coordinates.X, (float) targetAirplane.Coordinates.Y);
+			//coordPoint = Vector2.SmoothDamp(coordPoint, toCoordPoint, ref velocity, smoothing);
+			//Coordinates = new ArcGISPoint(coordPoint.x, coordPoint.y, altitude, Coordinates.SpatialReference);
+
+			Coordinates = new ArcGISPoint(targetAirplane.Coordinates.X, targetAirplane.Coordinates.Y, altitude, Coordinates.SpatialReference);
 		}
 	}
 }
