@@ -379,7 +379,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   locationComponent: {fileID: 330585548}
-  altitude: 7000000
+  minAltitude: 3000000
+  maxAltitude: 10000000
+  smoothing: 0.2
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
