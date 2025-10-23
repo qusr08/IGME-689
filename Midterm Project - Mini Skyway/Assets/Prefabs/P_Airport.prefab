@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4976015744787537339}
   - component: {fileID: 1451045206168911703}
   m_Layer: 0
-  m_Name: P_Airport_Square
+  m_Name: P_Airport
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
