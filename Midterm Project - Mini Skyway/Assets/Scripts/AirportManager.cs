@@ -12,10 +12,12 @@ public class AirportManager : MonoBehaviour
 	[SerializeField] private Transform airportContainer;
 	[SerializeField] private Transform airplaneContainer;
 	[SerializeField] private Transform flightPathContainer;
-	[SerializeField] private GameObject airportPrefab;
+    [SerializeField] private Transform canvasTransform;
+    [SerializeField] private GameObject airportPrefab;
 	[SerializeField] private GameObject airplanePrefab;
 	[SerializeField] private GameObject flightPathPrefab;
-	[SerializeField] private ArcGISMapComponent mapComponent;
+	[SerializeField] private GameObject airportIndicatorPrefab;
+    [SerializeField] private ArcGISMapComponent mapComponent;
 
 	private List<int> availableDataIndices;
 	private List<int> usedDataIndices;
@@ -78,6 +80,9 @@ public class AirportManager : MonoBehaviour
 		Airport airport = Instantiate(airportPrefab, airportContainer).GetComponent<Airport>();
 		airport.Data = airportDataLoader.AirportDataList[dataIndex];
 		AirportList.Add(airport);
+
+		AirportIndicator indicator = Instantiate(airportIndicatorPrefab, canvasTransform).GetComponent<AirportIndicator>();
+		indicator.Target = airport;
 	}
 
 	private void SpawnNewAirplane()

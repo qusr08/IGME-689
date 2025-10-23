@@ -1,6 +1,7 @@
 using Esri.ArcGISMapsSDK.Components;
 using Esri.ArcGISMapsSDK.Utils.GeoCoord;
 using Esri.GameEngine.Geometry;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Airplane : MonoBehaviour
@@ -11,6 +12,7 @@ public class Airplane : MonoBehaviour
 	[SerializeField, Min(0f)] private int altitude;
 	[SerializeField] private float speed;
 	[Space]
+	[SerializeField] private List<Airport> airportPath;
 	[SerializeField] private Airport toAirport;
 	[SerializeField] private Airport fromAirport;
 
