@@ -303,7 +303,7 @@ MonoBehaviour:
     - {fileID: 3308774708306591531}
     - {fileID: 3978337402519957075}
     - {fileID: 7477102130799742184}
-  shapeMaterial: {fileID: 2100000, guid: b66d88cab8caa3a498e11202a6602323, type: 2}
+  _material: {fileID: 2100000, guid: b66d88cab8caa3a498e11202a6602323, type: 2}
   _type: 0
 --- !u!1001 &6315493386404200332
 PrefabInstance:

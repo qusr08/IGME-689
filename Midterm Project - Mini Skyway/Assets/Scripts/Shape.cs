@@ -10,7 +10,7 @@ public enum ShapeType
 public class Shape : MonoBehaviour
 {
     [SerializeField] private ShapeMeshDictionary shapeMeshDictionary;
-    [SerializeField] private Material shapeMaterial;
+    [SerializeField] private Material _material;
     [SerializeField] private ShapeType _type;
 
     public ShapeType Type
@@ -31,23 +31,25 @@ public class Shape : MonoBehaviour
 
     public bool IsRendererVisible => shapeMeshDictionary[Type].isVisible;
 
-    private void OnValidate()
+    public Material Material
     {
-        int airportTypeCount = Enum.GetValues(typeof(ShapeType)).Length;
-        for (int i = 0; i < airportTypeCount; i++)
+        get => _material;
+        set
         {
-            shapeMeshDictionary[(ShapeType)i].material = shapeMaterial;
-        }
-    }
+            _material = value;
 
-    private void Awake()
-    {
-        OnValidate();
+			int airportTypeCount = Enum.GetValues(typeof(ShapeType)).Length;
+			for (int i = 0; i < airportTypeCount; i++)
+			{
+				shapeMeshDictionary[(ShapeType)i].material = _material;
+			}
+		}
     }
 
     private void Start()
     {
         Type = (ShapeType)Random.Range(0, 3);
+        Material = _material;
     }
 
     private void OnMouseDown()

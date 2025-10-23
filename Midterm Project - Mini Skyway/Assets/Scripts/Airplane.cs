@@ -9,6 +9,7 @@ public class Airplane : MonoBehaviour
 	[SerializeField] private AirportManager airportManager;
 	[SerializeField] private ArcGISLocationComponent locationComponent;
 	[SerializeField] private MeshRenderer[] meshRenderers;
+	[SerializeField] private PassengerContainer passengerContainer;
 	[SerializeField, Min(0f)] private int altitude;
 	[SerializeField] private float speed;
 	[Space]

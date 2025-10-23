@@ -1,6 +1,7 @@
 using Esri.ArcGISMapsSDK.Components;
 using Esri.ArcGISMapsSDK.Utils.GeoCoord;
 using Esri.GameEngine.Geometry;
+using Esri.HPFramework;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -9,8 +10,7 @@ public class Airport : MonoBehaviour
 {
     [SerializeField] private ArcGISLocationComponent locationComponent;
     [SerializeField] private Shape mainShape;
-    [SerializeField] private List<Shape> passengerShapeList;
-    [SerializeField, Min(1)] private int size;
+    [SerializeField] private PassengerContainer passengerContainer;
     [Space]
     [SerializeField] private AirportData _data;
     [SerializeField] private AirportIndicator _indicator;
@@ -44,6 +44,13 @@ public class Airport : MonoBehaviour
     {
         Type = (ShapeType)Random.Range(0, 3);
         Coordinates = new ArcGISPoint(Coordinates.X, Coordinates.Y, 0f, Coordinates.SpatialReference);
-        Rotation = new ArcGISRotation(0f, 90f, 0f);
     }
+
+	private void Update()
+	{
+		if (Random.Range(0f, 1f) < 0.1f)
+        {
+            passengerContainer.AddRandomPassenger();
+		}
+	}
 }
