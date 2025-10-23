@@ -38,16 +38,18 @@ public class AirportManager : MonoBehaviour
 
 	private void Start()
 	{
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < 50; i++)
 		{
-			SpawnNewRandomAirport();
+			SpawnNewAirport();
 		}
 
-		Airplane airplane = Instantiate(airplanePrefab, airplaneContainer).GetComponent<Airplane>();
-		AirplaneList.Add(airplane);
+		for (int i = 0; i < 200; i++)
+		{
+			SpawnNewAirplane();
+		}
 	}
 
-	private void SpawnNewRandomAirport()
+	private void SpawnNewAirport()
 	{
 		int dataIndex = availableDataIndices[Random.Range(0, availableDataIndices.Count)];
 		availableDataIndices.Remove(dataIndex);
@@ -56,6 +58,12 @@ public class AirportManager : MonoBehaviour
 		Airport airport = Instantiate(airportPrefab, airportContainer).GetComponent<Airport>();
 		airport.Data = airportDataLoader.AirportDataList[dataIndex];
 		AirportList.Add(airport);
+	}
+
+	private void SpawnNewAirplane()
+	{
+		Airplane airplane = Instantiate(airplanePrefab, airplaneContainer).GetComponent<Airplane>();
+		AirplaneList.Add(airplane);
 	}
 
 	public Airport GetRandomAirport(Airport excludedAirport = null)
@@ -89,7 +97,7 @@ public class AirportManager : MonoBehaviour
 		return (bearing + 360f) % 360f;
 	}
 
-	public ArcGISPoint IntermediateCoordinate (ArcGISPoint fromCoord, ArcGISPoint toCoord, float t)
+	public ArcGISPoint IntermediateCoordinate(ArcGISPoint fromCoord, ArcGISPoint toCoord, float t)
 	{
 		Vector2 fromCoordRad = new Vector2((float)fromCoord.X, (float)fromCoord.Y) * Mathf.Deg2Rad;
 		Vector2 toCoordRad = new Vector2((float)toCoord.X, (float)toCoord.Y) * Mathf.Deg2Rad;

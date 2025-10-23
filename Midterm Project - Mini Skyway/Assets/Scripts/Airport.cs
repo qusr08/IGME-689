@@ -30,37 +30,33 @@ public class Airport : MonoBehaviour
             circleObject.SetActive(_airportType == AirportType.CIRCLE);
             triangleObject.SetActive(_airportType == AirportType.TRIANGLE);
         }
-    }
-    public ArcGISPoint Coordinates { get => locationComponent.Position; set => locationComponent.Position = value; }
-    public AirportData Data
-    {
-        get => _data;
-        set
-        {
-            _data = value;
-            Coordinates = new ArcGISPoint(_data.Longitude, _data.Latitude, 0f, Coordinates.SpatialReference);
-        }
-    }
+	}
 
-    private void OnValidate()
-    {
-        locationComponent = GetComponent<ArcGISLocationComponent>();
-        if (Coordinates != null)
-        {
-            Coordinates = new ArcGISPoint(Coordinates.X, Coordinates.Y, 0f, Coordinates.SpatialReference);
-            locationComponent.Rotation = new ArcGISRotation(0f, 90f, 0f);
-        }
-    }
+	public AirportData Data
+	{
+		get => _data;
+		set
+		{
+			_data = value;
+			Coordinates = new ArcGISPoint(_data.Longitude, _data.Latitude, 0f, Coordinates.SpatialReference);
+		}
+	}
+
+	public ArcGISPoint Coordinates { get => locationComponent.Position; set => locationComponent.Position = value; }
+	public ArcGISRotation Rotation { get => locationComponent.Rotation; private set => locationComponent.Rotation = value; }
 
     private void Awake()
-    {
-        OnValidate();
-    }
+	{
+		locationComponent = GetComponent<ArcGISLocationComponent>();
+	}
 
     private void Start()
     {
         AirportType = (AirportType)Random.Range(0, 3);
-    }
+
+		Coordinates = new ArcGISPoint(Coordinates.X, Coordinates.Y, 0f, Coordinates.SpatialReference);
+		Rotation = new ArcGISRotation(0f, 90f, 0f);
+	}
 
     private void OnMouseDown()
     {
