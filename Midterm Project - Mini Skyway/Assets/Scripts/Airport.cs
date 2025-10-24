@@ -8,49 +8,40 @@ using Random = UnityEngine.Random;
 
 public class Airport : MonoBehaviour
 {
-    [SerializeField] private ArcGISLocationComponent locationComponent;
-    [SerializeField] private Shape mainShape;
-    [SerializeField] private PassengerContainer passengerContainer;
-    [Space]
-    [SerializeField] private AirportData _data;
-    [SerializeField] private AirportIndicator _indicator;
+	[SerializeField] private ArcGISLocationComponent locationComponent;
+	[SerializeField] private Shape mainShape;
+	[SerializeField] private PassengerContainer _passengerContainer;
+	[Space]
+	[SerializeField] private AirportData _data;
+	[SerializeField] private AirportIndicator _indicator;
 
-    public AirportIndicator Indicator { get => _indicator; set => _indicator = value; }
+	public AirportIndicator Indicator { get => _indicator; set => _indicator = value; }
 
-    public ShapeType Type { get => mainShape.Type; private set => mainShape.Type = value; }
+	public ShapeType Type { get => mainShape.Type; set => mainShape.Type = value; }
 
-    public bool IsRendererVisible => mainShape.IsRendererVisible;
+	public bool IsRendererVisible => mainShape.IsRendererVisible;
 
-    public AirportData Data
-    {
-        get => _data;
-        set
-        {
-            _data = value;
-            Coordinates = new ArcGISPoint(_data.Longitude, _data.Latitude, 0f, Coordinates.SpatialReference);
-        }
-    }
+	public PassengerContainer PassengerContainer { get => _passengerContainer; private set => _passengerContainer = value; }
 
-    public ArcGISPoint Coordinates { get => locationComponent.Position; set => locationComponent.Position = value; }
+	public AirportData Data
+	{
+		get => _data;
+		set
+		{
+			_data = value;
+			Coordinates = new ArcGISPoint(_data.Longitude, _data.Latitude, 0f, Coordinates.SpatialReference);
+		}
+	}
 
-    public ArcGISRotation Rotation { get => locationComponent.Rotation; private set => locationComponent.Rotation = value; }
+	public ArcGISPoint Coordinates { get => locationComponent.Position; set => locationComponent.Position = value; }
 
-    private void Awake()
-    {
-        locationComponent = GetComponent<ArcGISLocationComponent>();
-    }
-
-    private void Start()
-    {
-        Type = (ShapeType)Random.Range(0, 3);
-        Coordinates = new ArcGISPoint(Coordinates.X, Coordinates.Y, 0f, Coordinates.SpatialReference);
-    }
+	public ArcGISRotation Rotation { get => locationComponent.Rotation; private set => locationComponent.Rotation = value; }
 
 	private void Update()
 	{
-		if (Random.Range(0f, 1f) < 0.1f)
-        {
-            passengerContainer.AddRandomPassenger();
+		if (Random.Range(0f, 1f) < 0.005f)
+		{
+			PassengerContainer.AddRandomPassenger(excludedType: Type);
 		}
 	}
 }

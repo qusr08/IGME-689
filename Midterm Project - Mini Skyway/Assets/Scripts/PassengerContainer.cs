@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PassengerContainer : MonoBehaviour
 {
@@ -9,26 +12,20 @@ public class PassengerContainer : MonoBehaviour
 	[SerializeField] private float passengerSpacing;
 	[SerializeField] private int columns;
 	[Space]
-	[SerializeField] private Queue<Shape> passengerQueue;
+	[SerializeField] private List<Shape> passengerList;
 
 	public int MaxPassengerCount => 2 * columns;
 
-	public bool IsAtCapacity => passengerQueue.Count == MaxPassengerCount;
+	public int CurrentPassengers => passengerList.Count;
+
+	public bool IsAtCapacity => CurrentPassengers == MaxPassengerCount;
 
 	private void Awake()
 	{
-		passengerQueue = new Queue<Shape>();
+		passengerList = new List<Shape>();
 	}
 
-	private void Start()
-	{
-		for (int i = 0; i < MaxPassengerCount; i++)
-		{
-			AddRandomPassenger();
-		}
-	}
-
-	public void AddRandomPassenger()
+	public void AddPassenger(ShapeType shapeType)
 	{
 		if (IsAtCapacity)
 		{
@@ -37,32 +34,73 @@ public class PassengerContainer : MonoBehaviour
 
 		Shape passenger = Instantiate(passengerPrefab, transform).GetComponent<Shape>();
 		passenger.Material = passengerMaterial;
-		passengerQueue.Enqueue(passenger);
+		passenger.Type = shapeType;
+		passengerList.Add(passenger);
+
 		UpdatePassengerPositions();
+	}
+
+	public void AddRandomPassenger(ShapeType excludedType = ShapeType.NONE)
+	{
+		List<ShapeType> availableTypes = new List<ShapeType>() {
+			ShapeType.CIRCLE, ShapeType.TRIANGLE, ShapeType.SQUARE
+		}.Where(x => x != excludedType).ToList();
+		AddPassenger(availableTypes[Random.Range(0, availableTypes.Count)]);
 	}
 
 	public void UpdatePassengerPositions()
 	{
-		int i = 0;
-		foreach (Shape passenger in passengerQueue)
+		for (int i = 0; i < passengerList.Count; i++)
 		{
 			float rowOffset = i / columns == 0 ? 1 : -1;
 			float columnOffset = i % columns;
 			float x = 0.5f + ((columnOffset + 1) * passengerSpacing) + ((columnOffset * passengerSize) + (passengerSize / 2f));
 			float z = (passengerSize + passengerSpacing) / 2f * rowOffset;
 
-			passenger.transform.localPosition = new Vector3(x, passengerSize, z);
-			passenger.transform.localScale = passengerSize * Vector3.one;
-
-			i++;
+			passengerList[i].transform.localPosition = new Vector3(x, passengerSize, z);
+			passengerList[i].transform.localScale = passengerSize * Vector3.one;
 		}
 	}
 
-	public Shape RemoveNextPassenger()
+	public ShapeType RemoveNextPassenger()
 	{
-		Shape nextPassenger = passengerQueue.Dequeue();
+		if (passengerList.Count == 0)
+		{
+			return ShapeType.NONE;
+		}
+
+		return RemovePassengerAtIndex(0);
+	}
+
+	public ShapeType RemovePassengerAtIndex(int index)
+	{
+		ShapeType nextPassengerType = passengerList[0].Type;
+		Destroy(passengerList[0].gameObject);
+		passengerList.RemoveAt(0);
+
 		UpdatePassengerPositions();
 
-		return nextPassenger;
+		return nextPassengerType;
+	}
+
+	public int RemovePassengersOfType(ShapeType type)
+	{
+		if (passengerList.Count == 0)
+		{
+			return 0;
+		}
+
+		int count = 0;
+
+		for (int i = CurrentPassengers - 1; i >= 0; i--)
+		{
+			if (passengerList[i].Type == type)
+			{
+				count++;
+				RemovePassengerAtIndex(i);
+			}
+		}
+
+		return count;
 	}
 }

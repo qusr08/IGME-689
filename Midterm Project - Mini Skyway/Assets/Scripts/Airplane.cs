@@ -29,8 +29,6 @@ public class Airplane : MonoBehaviour
 	private void Awake()
 	{
 		airportManager = FindFirstObjectByType<AirportManager>();
-		locationComponent = GetComponent<ArcGISLocationComponent>();
-		meshRenderers = GetComponentsInChildren<MeshRenderer>();
 
 		airplaneMaterial = new Material(meshRenderers[0].material);
 		foreach (MeshRenderer meshRenderer in meshRenderers)
@@ -55,6 +53,8 @@ public class Airplane : MonoBehaviour
 		if (progress >= 1f)
 		{
 			fromAirport = toAirport ? toAirport : airportManager.GetRandomAirport();
+			DropOffPassengers();
+			PickUpPassengers();
 			FlyToRandomAirport();
 			progress = 0f;
 			progressSpeed = speed / airportManager.HaversineDistance(fromAirport.Coordinates, toAirport.Coordinates);
@@ -80,5 +80,35 @@ public class Airplane : MonoBehaviour
 	private void FlyToRandomAirport()
 	{
 		FlyToAirport(airportManager.GetRandomAirport(excludedAirport: fromAirport));
+	}
+
+	private void DropOffPassengers()
+	{
+		if (fromAirport == null)
+		{
+			return;
+		}
+
+		passengerContainer.RemovePassengersOfType(fromAirport.Type);
+	}
+
+	private void PickUpPassengers()
+	{
+		if (fromAirport == null)
+		{
+			return;
+		}
+
+		while (!passengerContainer.IsAtCapacity)
+		{
+			ShapeType passengerType = fromAirport.PassengerContainer.RemoveNextPassenger();
+
+			if (passengerType == ShapeType.NONE)
+			{
+				break;
+			}
+
+			passengerContainer.AddPassenger(passengerType);
+		}
 	}
 }

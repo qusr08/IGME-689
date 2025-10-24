@@ -12,12 +12,12 @@ public class AirportManager : MonoBehaviour
 	[SerializeField] private Transform airportContainer;
 	[SerializeField] private Transform airplaneContainer;
 	[SerializeField] private Transform flightPathContainer;
-    [SerializeField] private Transform canvasTransform;
-    [SerializeField] private GameObject airportPrefab;
+	[SerializeField] private Transform canvasTransform;
+	[SerializeField] private GameObject airportPrefab;
 	[SerializeField] private GameObject airplanePrefab;
 	[SerializeField] private GameObject flightPathPrefab;
 	[SerializeField] private GameObject airportIndicatorPrefab;
-    [SerializeField] private ArcGISMapComponent mapComponent;
+	[SerializeField] private ArcGISMapComponent mapComponent;
 
 	private List<int> availableDataIndices;
 	private List<int> usedDataIndices;
@@ -29,8 +29,6 @@ public class AirportManager : MonoBehaviour
 
 	private void Awake()
 	{
-		mapComponent = FindFirstObjectByType<ArcGISMapComponent>();
-
 		AirportList = new List<Airport>();
 		AirplaneList = new List<Airplane>();
 		availableDataIndices = new List<int>();
@@ -52,7 +50,7 @@ public class AirportManager : MonoBehaviour
 			SpawnNewAirport();
 		}
 
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < 20; i++)
 		{
 			SpawnNewAirplane();
 		}
@@ -79,6 +77,7 @@ public class AirportManager : MonoBehaviour
 
 		Airport airport = Instantiate(airportPrefab, airportContainer).GetComponent<Airport>();
 		airport.Data = airportDataLoader.AirportDataList[dataIndex];
+		airport.Type = (ShapeType)(AirportList.Count % 3) + 1;
 		AirportList.Add(airport);
 
 		//AirportIndicator indicator = Instantiate(airportIndicatorPrefab, canvasTransform).GetComponent<AirportIndicator>();
@@ -93,8 +92,12 @@ public class AirportManager : MonoBehaviour
 
 	private void SpawnNewFlightPath(Airport start, Airport end)
 	{
+		// Spawn the line renderer object
 		LineRenderer flightPath = Instantiate(flightPathPrefab, flightPathContainer).GetComponent<LineRenderer>();
 		int flightPathSegmentDistance = 10000;
+
+		// Calculate the distance (in meters) from a start geo coordinate to an end geo coordinate
+		// Divide this up into segments to see how many points to add to the line renderer
 		int pointCount = (int)HaversineDistance(start.Coordinates, end.Coordinates) / flightPathSegmentDistance;
 
 		ArcGISPoint interCoord;
@@ -102,7 +105,11 @@ public class AirportManager : MonoBehaviour
 		Vector3[] positions = new Vector3[pointCount + 1];
 		for (int i = 0; i <= pointCount; i++)
 		{
+			// Get a value between 0 and 1
 			t = (float)i / pointCount;
+
+			// Get an intermediate coordinate between the start and end geo coordinates, then convert that geo position to a unity world position
+			// The unity world position is then added to the position list
 			interCoord = IntermediateCoordinate(start.Coordinates, end.Coordinates, t);
 			interCoord = new ArcGISPoint(interCoord.X, interCoord.Y, flightPath.startWidth / 2f, interCoord.SpatialReference);
 			positions[i] = mapComponent.View.GeographicToWorld(interCoord).ToVector3();

@@ -1,10 +1,9 @@
 using System;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public enum ShapeType
 {
-    CIRCLE, TRIANGLE, SQUARE
+    NONE, CIRCLE, TRIANGLE, SQUARE
 }
 
 public class Shape : MonoBehaviour
@@ -22,7 +21,7 @@ public class Shape : MonoBehaviour
 
             // Update active airport mesh
             int airportTypeCount = Enum.GetValues(typeof(ShapeType)).Length;
-            for (int i = 0; i < airportTypeCount; i++)
+            for (int i = 1; i < airportTypeCount; i++)
             {
                 shapeMeshDictionary[(ShapeType)i].enabled = (_type == (ShapeType)i);
             }
@@ -39,7 +38,7 @@ public class Shape : MonoBehaviour
             _material = value;
 
 			int airportTypeCount = Enum.GetValues(typeof(ShapeType)).Length;
-			for (int i = 0; i < airportTypeCount; i++)
+			for (int i = 1; i < airportTypeCount; i++)
 			{
 				shapeMeshDictionary[(ShapeType)i].material = _material;
 			}
@@ -48,7 +47,6 @@ public class Shape : MonoBehaviour
 
     private void Start()
     {
-        Type = (ShapeType)Random.Range(0, 3);
         Material = _material;
     }
 

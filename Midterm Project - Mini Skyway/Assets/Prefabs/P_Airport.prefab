@@ -106,7 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   locationComponent: {fileID: 6839286318541341239}
   mainShape: {fileID: 240847039792808874}
-  passengerContainer: {fileID: 2771304826768344262}
+  _passengerContainer: {fileID: 2771304826768344262}
   _data:
     Name: 
     Longitude: 0
