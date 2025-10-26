@@ -105,6 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   airportManager: {fileID: 0}
+  uiManager: {fileID: 0}
   locationComponent: {fileID: 2540513924956913891}
   meshRenderers:
   - {fileID: 1143260348868380558}
@@ -116,12 +117,15 @@ MonoBehaviour:
   - {fileID: 1803054615166679389}
   - {fileID: 7475994344663547641}
   - {fileID: 2986962808105911725}
-  passengerContainer: {fileID: 5050618484861870916}
+  _passengerContainer: {fileID: 5050618484861870916}
   altitude: 200000
-  speed: 2000000
-  airportPath: []
+  speed: 1000000
+  _airportPath: []
+  currentPathIndex: 0
   toAirport: {fileID: 0}
   fromAirport: {fileID: 0}
+  _planeColor: 0
+  _isDocked: 1
 --- !u!1001 &1450111505415945038
 PrefabInstance:
   m_ObjectHideFlags: 0

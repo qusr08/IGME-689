@@ -2,62 +2,71 @@ using UnityEngine;
 
 public class AirportIndicator : MonoBehaviour
 {
-    [SerializeField] private Camera mainCamera;
-    [SerializeField] private Canvas canvas;
-    [SerializeField] private RectTransform rectTransform;
-    [SerializeField] private GameObject contentContainer;
-    [Space]
-    [SerializeField] private Airport _target;
-    [SerializeField] private bool _isEnabled;
+	[SerializeField] private Camera mainCamera;
+	[SerializeField] private Canvas canvas;
+	[SerializeField] private RectTransform rectTransform;
+	[SerializeField] private GameObject contentContainer;
+	[Space]
+	[SerializeField] private Airport _target;
+	[SerializeField] private bool _isEnabled;
 
-    public Airport Target
-    {
-        get => _target;
-        set
-        {
-            _target = value;
-            _target.Indicator = this;
-        }
-    }
+	private bool isEnabledFlag;
 
-    public bool IsEnabled
-    {
-        get => _isEnabled;
-        set
-        {
-            _isEnabled = value;
-            contentContainer.SetActive(value);
-        }
-    }
+	public Airport Target
+	{
+		get => _target;
+		set
+		{
+			_target = value;
+			_target.Indicator = this;
+		}
+	}
 
-    private void Awake()
-    {
-        mainCamera = FindFirstObjectByType<Camera>();
-        canvas = FindFirstObjectByType<Canvas>();
-        rectTransform = GetComponent<RectTransform>();
+	public bool IsEnabled
+	{
+		get => _isEnabled;
+		set
+		{
+			_isEnabled = value;
+			contentContainer.SetActive(value);
+		}
+	}
 
-        IsEnabled = false;
-    }
+	private void Awake()
+	{
+		mainCamera = FindFirstObjectByType<Camera>();
+		canvas = FindFirstObjectByType<Canvas>();
+		rectTransform = GetComponent<RectTransform>();
 
-    private void Update()
-    {
-        if (Target == null)
-        {
-            return;
-        }
+		IsEnabled = false;
+		isEnabledFlag = false;
+	}
 
-        if (Target.IsRendererVisible && !IsEnabled)
-        {
-            IsEnabled = true;
-        }
-        else if (!Target.IsRendererVisible && IsEnabled)
-        {
-            IsEnabled = false;
-        }
+	private void Update()
+	{
+		if (Target == null)
+		{
+			return;
+		}
 
-        if (IsEnabled)
-        {
-            rectTransform.anchoredPosition = mainCamera.WorldToScreenPoint(Target.transform.position) / canvas.scaleFactor;
-        }
-    }
+		isEnabledFlag = false;
+		if (Target.IsRendererVisible && (Target.ConnectedAirplanes.Count == 0 || Target.PassengerContainer.IsAtCapacity))
+		{
+			isEnabledFlag = true;
+		}
+
+		if (!IsEnabled && isEnabledFlag)
+		{
+			IsEnabled = true;
+		}
+		else if (IsEnabled && !isEnabledFlag)
+		{
+			IsEnabled = false;
+		}
+
+		if (IsEnabled)
+		{
+			rectTransform.anchoredPosition = mainCamera.WorldToScreenPoint(Target.transform.position) / canvas.scaleFactor;
+		}
+	}
 }

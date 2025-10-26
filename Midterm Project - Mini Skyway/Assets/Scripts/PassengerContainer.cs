@@ -14,15 +14,17 @@ public class PassengerContainer : MonoBehaviour
 	[Space]
 	[SerializeField] private List<Shape> passengerList;
 
+	public List<ShapeType> PassengerTypeList { get; private set; }
 	public int MaxPassengerCount => 2 * columns;
-
 	public int CurrentPassengers => passengerList.Count;
-
 	public bool IsAtCapacity => CurrentPassengers == MaxPassengerCount;
+	public Material LocalMaterial { get; private set; }
 
 	private void Awake()
 	{
 		passengerList = new List<Shape>();
+		PassengerTypeList = new List<ShapeType>();
+		LocalMaterial = new Material(passengerMaterial);
 	}
 
 	public void AddPassenger(ShapeType shapeType)
@@ -33,9 +35,10 @@ public class PassengerContainer : MonoBehaviour
 		}
 
 		Shape passenger = Instantiate(passengerPrefab, transform).GetComponent<Shape>();
-		passenger.Material = passengerMaterial;
+		passenger.Material = LocalMaterial;
 		passenger.Type = shapeType;
 		passengerList.Add(passenger);
+		PassengerTypeList.Add(shapeType);
 
 		UpdatePassengerPositions();
 	}
@@ -72,15 +75,34 @@ public class PassengerContainer : MonoBehaviour
 		return RemovePassengerAtIndex(0);
 	}
 
+	public ShapeType GetNextPassengerType()
+	{
+		if (passengerList.Count == 0)
+		{
+			return ShapeType.NONE;
+		}
+
+		return passengerList[0].Type;
+	}
+
 	public ShapeType RemovePassengerAtIndex(int index)
 	{
-		ShapeType nextPassengerType = passengerList[0].Type;
-		Destroy(passengerList[0].gameObject);
-		passengerList.RemoveAt(0);
+		ShapeType nextPassengerType = passengerList[index].Type;
+		Destroy(passengerList[index].gameObject);
+		passengerList.RemoveAt(index);
+		PassengerTypeList.RemoveAt(index);
 
 		UpdatePassengerPositions();
 
 		return nextPassengerType;
+	}
+
+	public void RemoveAllPassengers()
+	{
+		for (int i = CurrentPassengers - 1; i >= 0; i--)
+		{
+			RemovePassengerAtIndex(i);
+		}
 	}
 
 	public int RemovePassengersOfType(ShapeType type)

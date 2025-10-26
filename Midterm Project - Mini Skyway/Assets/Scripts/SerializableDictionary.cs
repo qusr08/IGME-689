@@ -5,6 +5,8 @@ using UnityEngine;
 
 [Serializable]
 public class ShapeMeshDictionary : SerializableDictionary<ShapeType, MeshRenderer> { }
+[Serializable]
+public class PlaneColorDictionary : SerializableDictionary<PlaneColor, Color> { }
 
 public abstract class SerializableDictionaryBase<TKey, TValue, TValueStorage> : Dictionary<TKey, TValue>, ISerializationCallbackReceiver
 {

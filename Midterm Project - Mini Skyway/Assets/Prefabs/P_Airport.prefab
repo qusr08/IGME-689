@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 2968921951483105038}
   - component: {fileID: 6839286318541341239}
   - component: {fileID: 1804123477000265326}
+  - component: {fileID: 5802064744100188597}
   m_Layer: 0
   m_Name: P_Airport
-  m_TagString: Untagged
+  m_TagString: Airport
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104,14 +105,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d441a78ca5e8c774898c7fe6932b5c8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiManager: {fileID: 0}
   locationComponent: {fileID: 6839286318541341239}
   mainShape: {fileID: 240847039792808874}
   _passengerContainer: {fileID: 2771304826768344262}
+  passengerLoadDelay: 1
+  gameOverTime: 10
   _data:
     Name: 
     Longitude: 0
     Latitude: 0
   _indicator: {fileID: 0}
+  DockedAirplanes: []
+  ConnectedAirplanes: []
+--- !u!65 &5802064744100188597
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8385960529726928052}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 2, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &5175743117580270064
 PrefabInstance:
   m_ObjectHideFlags: 0

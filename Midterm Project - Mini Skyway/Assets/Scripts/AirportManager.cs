@@ -1,18 +1,21 @@
 using Esri.ArcGISMapsSDK.Components;
 using Esri.GameEngine.Geometry;
 using Esri.HPFramework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class AirportManager : MonoBehaviour
 {
 	public const int EARTH_RADIUS_METERS = 6378100;
 
+	[SerializeField] private UIManager uiManager;
 	[SerializeField] private Transform airportContainer;
 	[SerializeField] private Transform airplaneContainer;
 	[SerializeField] private Transform flightPathContainer;
-	[SerializeField] private Transform canvasTransform;
+	[SerializeField] private Transform indicatorContainer;
 	[SerializeField] private GameObject airportPrefab;
 	[SerializeField] private GameObject airplanePrefab;
 	[SerializeField] private GameObject flightPathPrefab;
@@ -21,7 +24,6 @@ public class AirportManager : MonoBehaviour
 
 	private List<int> availableDataIndices;
 	private List<int> usedDataIndices;
-
 	private AirportDataLoader airportDataLoader;
 
 	public List<Airport> AirportList { get; private set; }
@@ -33,6 +35,7 @@ public class AirportManager : MonoBehaviour
 		AirplaneList = new List<Airplane>();
 		availableDataIndices = new List<int>();
 		usedDataIndices = new List<int>();
+		uiManager = FindFirstObjectByType<UIManager>();
 
 		airportDataLoader = new AirportDataLoader();
 		airportDataLoader.LoadDataFromCSVFile();
@@ -43,29 +46,37 @@ public class AirportManager : MonoBehaviour
 		}
 	}
 
-	private void Start()
+	private void Update()
 	{
-		for (int i = 0; i < 5; i++)
+		while (Mathf.FloorToInt((uiManager.CurrentTime / 60f) + 3.75f) > AirportList.Count)
+		{
+			SpawnNewAirport();
+		}
+	}
+
+	public void StartGame()
+	{
+		for (int i = 0; i < AirportList.Count; i++)
+		{
+			Destroy(AirportList[i].gameObject);
+		}
+		AirportList.Clear();
+
+		for (int i = 0; i < AirplaneList.Count; i++)
+		{
+			AirplaneList[i].ClearAiportPath();
+			Destroy(AirplaneList[i].gameObject);
+		}
+		AirplaneList.Clear();
+
+		for (int i = 0; i < 3; i++)
 		{
 			SpawnNewAirport();
 		}
 
-		for (int i = 0; i < 20; i++)
+		for (int i = 0; i < Enum.GetValues(typeof(PlaneColor)).Length; i++)
 		{
-			SpawnNewAirplane();
-		}
-
-		for (int i = 0; i < AirportList.Count; i++)
-		{
-			for (int j = 0; j < AirportList.Count; j++)
-			{
-				if (i == j)
-				{
-					continue;
-				}
-
-				SpawnNewFlightPath(AirportList[i], AirportList[j]);
-			}
+			Airplane airplane = SpawnNewAirplane();
 		}
 	}
 
@@ -80,17 +91,20 @@ public class AirportManager : MonoBehaviour
 		airport.Type = (ShapeType)(AirportList.Count % 3) + 1;
 		AirportList.Add(airport);
 
-		//AirportIndicator indicator = Instantiate(airportIndicatorPrefab, canvasTransform).GetComponent<AirportIndicator>();
-		//indicator.Target = airport;
+		AirportIndicator indicator = Instantiate(airportIndicatorPrefab, indicatorContainer).GetComponent<AirportIndicator>();
+		indicator.Target = airport;
 	}
 
-	private void SpawnNewAirplane()
+	private Airplane SpawnNewAirplane()
 	{
 		Airplane airplane = Instantiate(airplanePrefab, airplaneContainer).GetComponent<Airplane>();
+		airplane.Color = (PlaneColor)AirplaneList.Count;
 		AirplaneList.Add(airplane);
+		//airplane.AirportPath.Add(GetRandomAirport(excludedAirport: airplane.AirportPath[0]));
+		return airplane;
 	}
 
-	private void SpawnNewFlightPath(Airport start, Airport end)
+	public GameObject SpawnNewFlightPath(Airport start, Airport end, PlaneColor planeColor)
 	{
 		// Spawn the line renderer object
 		LineRenderer flightPath = Instantiate(flightPathPrefab, flightPathContainer).GetComponent<LineRenderer>();
@@ -117,6 +131,13 @@ public class AirportManager : MonoBehaviour
 
 		flightPath.positionCount = positions.Length;
 		flightPath.SetPositions(positions);
+
+		Material material = new Material(flightPath.material);
+		Color.RGBToHSV(uiManager.PlaneColorDictionary[planeColor], out float h, out float s, out float v);
+		material.color = Color.HSVToRGB(h, s, v * 0.5f);
+		flightPath.material = material;
+
+		return flightPath.gameObject;
 	}
 
 	public Airport GetRandomAirport(Airport excludedAirport = null)

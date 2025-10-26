@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEngine;
 
 [CustomPropertyDrawer(typeof(ShapeMeshDictionary))]
+[CustomPropertyDrawer(typeof(PlaneColorDictionary))]
 public class AnySerializableDictionaryPropertyDrawer : SerializableDictionaryPropertyDrawer { }
 
 public class SerializableDictionaryPropertyDrawer : PropertyDrawer
